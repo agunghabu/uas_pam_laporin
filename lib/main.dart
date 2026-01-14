@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:uas_pam_laporin/pages/login.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Laporin());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Laporin extends StatelessWidget {
+  const Laporin({super.key});
 
   @override
   Widget build(BuildContext context) {
