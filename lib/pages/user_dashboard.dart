@@ -19,7 +19,7 @@ class UserDashboard extends StatelessWidget {
                 border: Border.all(
                   color: Theme.of(context).colorScheme.outline,
                 ),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(6),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -35,6 +35,13 @@ class UserDashboard extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+          ),
+          SizedBox(height: 16),
+          TextField(
+            decoration: InputDecoration(
+              labelText: 'Title',
+              border: OutlineInputBorder(),
             ),
           ),
         ],
