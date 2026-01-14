@@ -12,7 +12,7 @@ class UserDashboard extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {},
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(6),
             child: Container(
               height: 220,
               decoration: BoxDecoration(
