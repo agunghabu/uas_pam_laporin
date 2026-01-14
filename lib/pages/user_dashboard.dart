@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
-class UserDashboard extends StatelessWidget {
+class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
+
+  @override
+  State<UserDashboard> createState() => _UserDashboardState();
+}
+
+class _UserDashboardState extends State<UserDashboard> {
+  int selectedArea = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +69,10 @@ class UserDashboard extends StatelessWidget {
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return DropdownMenu(
+                      onSelected: (value) {
+                        setState(() => selectedArea = value ?? 0);
+                      },
+                      initialSelection: -1,
                       width: constraints.maxWidth,
                       dropdownMenuEntries: [
                         DropdownMenuEntry(value: 0, label: 'Campus A'),
@@ -79,11 +90,7 @@ class UserDashboard extends StatelessWidget {
                   builder: (context, constraints) {
                     return DropdownMenu(
                       width: constraints.maxWidth,
-                      dropdownMenuEntries: [
-                        DropdownMenuEntry(value: 0, label: 'Campus A'),
-                        DropdownMenuEntry(value: 1, label: 'Campus B'),
-                        DropdownMenuEntry(value: 2, label: 'Campus C'),
-                      ],
+                      dropdownMenuEntries: getBuildingEntries(),
                       label: Text('Building'),
                     );
                   },
@@ -96,5 +103,35 @@ class UserDashboard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  getBuildingEntries() {
+    if (selectedArea == 0) {
+      return [
+        DropdownMenuEntry(value: 0, label: 'A1'),
+        DropdownMenuEntry(value: 1, label: 'A2'),
+        DropdownMenuEntry(value: 2, label: 'A3'),
+      ];
+    } else if (selectedArea == 1) {
+      return [
+        DropdownMenuEntry(value: 0, label: 'B1'),
+        DropdownMenuEntry(value: 1, label: 'B2'),
+        DropdownMenuEntry(value: 2, label: 'B3'),
+      ];
+    } else if (selectedArea == 2) {
+      return [
+        DropdownMenuEntry(value: 0, label: 'C1'),
+        DropdownMenuEntry(value: 1, label: 'C2'),
+        DropdownMenuEntry(value: 2, label: 'C3'),
+      ];
+    } else {
+      return [
+        DropdownMenuEntry(
+          value: 0,
+          enabled: false,
+          label: 'Select an area first',
+        ),
+      ];
+    }
   }
 }
