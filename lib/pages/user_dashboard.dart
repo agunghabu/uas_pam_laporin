@@ -63,9 +63,9 @@ class UserDashboard extends StatelessWidget {
                     return DropdownMenu(
                       width: constraints.maxWidth,
                       dropdownMenuEntries: [
-                        DropdownMenuEntry(value: 'a', label: 'Campus A'),
-                        DropdownMenuEntry(value: 'b', label: 'Campus B'),
-                        DropdownMenuEntry(value: 'c', label: 'Campus C'),
+                        DropdownMenuEntry(value: 0, label: 'Campus A'),
+                        DropdownMenuEntry(value: 1, label: 'Campus B'),
+                        DropdownMenuEntry(value: 2, label: 'Campus C'),
                       ],
                       label: Text('Area'),
                     );
@@ -79,9 +79,9 @@ class UserDashboard extends StatelessWidget {
                     return DropdownMenu(
                       width: constraints.maxWidth,
                       dropdownMenuEntries: [
-                        DropdownMenuEntry(value: 'a', label: 'Campus A'),
-                        DropdownMenuEntry(value: 'b', label: 'Campus B'),
-                        DropdownMenuEntry(value: 'c', label: 'Campus C'),
+                        DropdownMenuEntry(value: 0, label: 'Campus A'),
+                        DropdownMenuEntry(value: 1, label: 'Campus B'),
+                        DropdownMenuEntry(value: 2, label: 'Campus C'),
                       ],
                       label: Text('Building'),
                     );
