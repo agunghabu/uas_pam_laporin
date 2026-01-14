@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 getBuildingEntries(int selectedArea) {
   if (selectedArea == 0) {
@@ -28,5 +30,17 @@ getBuildingEntries(int selectedArea) {
         leadingIcon: Icon(Icons.info_outline),
       ),
     ];
+  }
+}
+
+takePhoto(ImagePicker picker) async {
+  try {
+    final XFile? photo = await picker.pickImage(source: ImageSource.camera);
+    if (photo != null) {
+      return File(photo.path);
+    }
+    return null;
+  } catch (e) {
+    print(e);
   }
 }

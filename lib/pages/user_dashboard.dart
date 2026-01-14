@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../utils/helpers.dart';
 
@@ -10,7 +13,9 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
+  File? imageFile;
   int selectedArea = -1;
+  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -20,31 +25,34 @@ class _UserDashboardState extends State<UserDashboard> {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         children: [
           InkWell(
-            onTap: () {},
+            onTap: () async {
+              imageFile = await takePhoto(_picker);
+              setState(() {});
+            },
             borderRadius: BorderRadius.circular(6),
             child: Container(
               height: 220,
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.outline,
-                ),
+                border: Border.all(color: Theme.of(context).colorScheme.outline),
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.camera_alt_outlined,
-                    size: 48,
-                    color: Colors.white24,
-                  ),
-                  Text(
-                    'Tap to take photo',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.outline,
-                    ),
-                  ),
-                ],
+              child: Builder(
+                builder: (context) {
+                  if (imageFile != null) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: Image.file(imageFile!, fit: BoxFit.cover, width: double.infinity),
+                    );
+                  } else {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.camera_alt_outlined, size: 48, color: Colors.white24),
+                        Text('Tap to take photo', style: TextStyle(color: Theme.of(context).colorScheme.outline)),
+                      ],
+                    );
+                  }
+                },
               ),
             ),
           ),
@@ -60,8 +68,7 @@ class _UserDashboardState extends State<UserDashboard> {
           TextField(
             maxLines: 3,
             decoration: InputDecoration(
-              labelText:
-                  'Additional description\n(Optional, e.g., location details)',
+              labelText: 'Additional description\n(Optional, e.g., location details)',
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.description_outlined),
             ),
