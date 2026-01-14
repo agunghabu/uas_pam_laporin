@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/helpers.dart';
+
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
 
@@ -94,7 +96,7 @@ class _UserDashboardState extends State<UserDashboard> {
                     return DropdownMenu(
                       width: constraints.maxWidth,
                       leadingIcon: Icon(Icons.apartment_outlined),
-                      dropdownMenuEntries: getBuildingEntries(),
+                      dropdownMenuEntries: getBuildingEntries(selectedArea),
                       label: Text('Unit'),
                     );
                   },
@@ -107,36 +109,5 @@ class _UserDashboardState extends State<UserDashboard> {
         ],
       ),
     );
-  }
-
-  getBuildingEntries() {
-    if (selectedArea == 0) {
-      return [
-        DropdownMenuEntry(value: 0, label: 'A1'),
-        DropdownMenuEntry(value: 1, label: 'A2'),
-        DropdownMenuEntry(value: 2, label: 'A3'),
-      ];
-    } else if (selectedArea == 1) {
-      return [
-        DropdownMenuEntry(value: 0, label: 'B1'),
-        DropdownMenuEntry(value: 1, label: 'B2'),
-        DropdownMenuEntry(value: 2, label: 'B3'),
-      ];
-    } else if (selectedArea == 2) {
-      return [
-        DropdownMenuEntry(value: 0, label: 'C1'),
-        DropdownMenuEntry(value: 1, label: 'C2'),
-        DropdownMenuEntry(value: 2, label: 'C3'),
-      ];
-    } else {
-      return [
-        DropdownMenuEntry(
-          value: 0,
-          enabled: false,
-          label: 'Select an area first',
-          leadingIcon: Icon(Icons.info_outline),
-        ),
-      ];
-    }
   }
 }
