@@ -59,6 +59,7 @@ class UserDashboard extends StatelessWidget {
             children: [
               Expanded(
                 child: DropdownMenu(
+                  width: double.infinity,
                   dropdownMenuEntries: [
                     DropdownMenuEntry(value: 'a', label: 'Campus A'),
                     DropdownMenuEntry(value: 'b', label: 'Campus B'),
@@ -70,6 +71,7 @@ class UserDashboard extends StatelessWidget {
               SizedBox(width: 16),
               Expanded(
                 child: DropdownMenu(
+                  width: double.infinity,
                   dropdownMenuEntries: [
                     DropdownMenuEntry(value: 'a', label: 'Campus A'),
                     DropdownMenuEntry(value: 'b', label: 'Campus B'),
