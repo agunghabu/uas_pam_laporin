@@ -134,6 +134,7 @@ class _UserDashboardState extends State<UserDashboard> {
           value: 0,
           enabled: false,
           label: 'Select an area first',
+          leadingIcon: Icon(Icons.info_outline),
         ),
       ];
     }
