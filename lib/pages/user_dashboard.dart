@@ -31,7 +31,9 @@ class UserDashboard extends StatelessWidget {
                   ),
                   Text(
                     'Tap to take photo',
-                    style: TextStyle(color: Colors.white24),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
                   ),
                 ],
               ),
