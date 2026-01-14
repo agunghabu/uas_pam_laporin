@@ -90,6 +90,8 @@ class UserDashboard extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 16),
+          FilledButton(onPressed: () {}, child: Text('Submit Report')),
         ],
       ),
     );
