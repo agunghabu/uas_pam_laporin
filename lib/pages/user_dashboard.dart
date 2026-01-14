@@ -51,6 +51,7 @@ class _UserDashboardState extends State<UserDashboard> {
             decoration: InputDecoration(
               labelText: 'Title',
               border: OutlineInputBorder(),
+              prefixIcon: Icon(Icons.title_outlined),
             ),
           ),
           SizedBox(height: 16),
@@ -60,6 +61,7 @@ class _UserDashboardState extends State<UserDashboard> {
               labelText:
                   'Additional description\n(Optional, e.g., location details)',
               border: OutlineInputBorder(),
+              prefixIcon: Icon(Icons.description_outlined),
             ),
           ),
           SizedBox(height: 16),
@@ -74,6 +76,7 @@ class _UserDashboardState extends State<UserDashboard> {
                       },
                       initialSelection: -1,
                       width: constraints.maxWidth,
+                      leadingIcon: Icon(Icons.location_on_outlined),
                       dropdownMenuEntries: [
                         DropdownMenuEntry(value: 0, label: 'Campus A'),
                         DropdownMenuEntry(value: 1, label: 'Campus B'),
@@ -90,6 +93,7 @@ class _UserDashboardState extends State<UserDashboard> {
                   builder: (context, constraints) {
                     return DropdownMenu(
                       width: constraints.maxWidth,
+                      leadingIcon: Icon(Icons.apartment_outlined),
                       dropdownMenuEntries: getBuildingEntries(),
                       label: Text('Building'),
                     );
