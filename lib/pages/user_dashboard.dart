@@ -58,26 +58,34 @@ class UserDashboard extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: DropdownMenu(
-                  width: double.infinity,
-                  dropdownMenuEntries: [
-                    DropdownMenuEntry(value: 'a', label: 'Campus A'),
-                    DropdownMenuEntry(value: 'b', label: 'Campus B'),
-                    DropdownMenuEntry(value: 'c', label: 'Campus C'),
-                  ],
-                  label: Text('Area'),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return DropdownMenu(
+                      width: constraints.maxWidth,
+                      dropdownMenuEntries: [
+                        DropdownMenuEntry(value: 'a', label: 'Campus A'),
+                        DropdownMenuEntry(value: 'b', label: 'Campus B'),
+                        DropdownMenuEntry(value: 'c', label: 'Campus C'),
+                      ],
+                      label: Text('Area'),
+                    );
+                  },
                 ),
               ),
               SizedBox(width: 16),
               Expanded(
-                child: DropdownMenu(
-                  width: double.infinity,
-                  dropdownMenuEntries: [
-                    DropdownMenuEntry(value: 'a', label: 'Campus A'),
-                    DropdownMenuEntry(value: 'b', label: 'Campus B'),
-                    DropdownMenuEntry(value: 'c', label: 'Campus C'),
-                  ],
-                  label: Text('Building'),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return DropdownMenu(
+                      width: constraints.maxWidth,
+                      dropdownMenuEntries: [
+                        DropdownMenuEntry(value: 'a', label: 'Campus A'),
+                        DropdownMenuEntry(value: 'b', label: 'Campus B'),
+                        DropdownMenuEntry(value: 'c', label: 'Campus C'),
+                      ],
+                      label: Text('Building'),
+                    );
+                  },
                 ),
               ),
             ],
