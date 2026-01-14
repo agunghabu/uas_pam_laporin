@@ -41,9 +41,35 @@ class _UserDashboardState extends State<UserDashboard> {
               child: Builder(
                 builder: (context) {
                   if (imageFile != null) {
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: Image.file(imageFile!, fit: BoxFit.cover, width: double.infinity),
+                    return Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(6),
+                          child: Image.file(imageFile!, fit: BoxFit.cover, width: double.infinity),
+                        ),
+                        Positioned(
+                          right: 4,
+                          bottom: 4,
+                          child: Row(
+                            children: [
+                              FilledButton.icon(
+                                onPressed: () async {
+                                  imageFile = await takePhoto(_picker);
+                                  setState(() {});
+                                },
+                                label: Text('Retake'),
+                                icon: Icon(Icons.camera_alt_outlined),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                style: IconButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                icon: Icon(Icons.fullscreen_rounded),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     );
                   } else {
                     return Column(
