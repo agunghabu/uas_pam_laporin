@@ -48,21 +48,37 @@ class UserDashboard extends StatelessWidget {
           ),
           SizedBox(height: 16),
           TextField(
-            maxLines: 5,
+            maxLines: 3,
             decoration: InputDecoration(
               labelText: 'Description',
               border: OutlineInputBorder(),
             ),
           ),
           SizedBox(height: 16),
-          DropdownMenu(
-            width: double.infinity,
-            dropdownMenuEntries: [
-              DropdownMenuEntry(value: 'a', label: 'Campus A'),
-              DropdownMenuEntry(value: 'b', label: 'Campus B'),
-              DropdownMenuEntry(value: 'c', label: 'Campus C'),
+          Row(
+            children: [
+              Expanded(
+                child: DropdownMenu(
+                  dropdownMenuEntries: [
+                    DropdownMenuEntry(value: 'a', label: 'Campus A'),
+                    DropdownMenuEntry(value: 'b', label: 'Campus B'),
+                    DropdownMenuEntry(value: 'c', label: 'Campus C'),
+                  ],
+                  label: Text('Area'),
+                ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: DropdownMenu(
+                  dropdownMenuEntries: [
+                    DropdownMenuEntry(value: 'a', label: 'Campus A'),
+                    DropdownMenuEntry(value: 'b', label: 'Campus B'),
+                    DropdownMenuEntry(value: 'c', label: 'Campus C'),
+                  ],
+                  label: Text('Building'),
+                ),
+              ),
             ],
-            label: Text('Location Area'),
           ),
         ],
       ),
