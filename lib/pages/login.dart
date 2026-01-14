@@ -20,7 +20,7 @@ class Login extends StatelessWidget {
             SizedBox(height: 16),
             TextField(
               decoration: InputDecoration(
-                labelText: 'Username',
+                labelText: 'NIM',
                 border: OutlineInputBorder(),
               ),
             ),
