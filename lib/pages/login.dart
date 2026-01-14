@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uas_pam_laporin/pages/user_dashboard.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -7,7 +8,7 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -33,7 +34,13 @@ class Login extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-            FilledButton(onPressed: () {}, child: Text('Login')),
+            FilledButton(
+              onPressed: () => Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => UserDashboard()),
+              ),
+              child: Text('Login'),
+            ),
           ],
         ),
       ),
