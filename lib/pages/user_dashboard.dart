@@ -54,6 +54,16 @@ class UserDashboard extends StatelessWidget {
               border: OutlineInputBorder(),
             ),
           ),
+          SizedBox(height: 16),
+          DropdownMenu(
+            width: double.infinity,
+            dropdownMenuEntries: [
+              DropdownMenuEntry(value: 'a', label: 'Campus A'),
+              DropdownMenuEntry(value: 'b', label: 'Campus B'),
+              DropdownMenuEntry(value: 'c', label: 'Campus C'),
+            ],
+            label: Text('Location Area'),
+          ),
         ],
       ),
     );
