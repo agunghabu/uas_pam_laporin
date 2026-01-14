@@ -95,7 +95,7 @@ class _UserDashboardState extends State<UserDashboard> {
                       width: constraints.maxWidth,
                       leadingIcon: Icon(Icons.apartment_outlined),
                       dropdownMenuEntries: getBuildingEntries(),
-                      label: Text('Building'),
+                      label: Text('Unit'),
                     );
                   },
                 ),
