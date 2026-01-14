@@ -46,6 +46,14 @@ class UserDashboard extends StatelessWidget {
               border: OutlineInputBorder(),
             ),
           ),
+          SizedBox(height: 16),
+          TextField(
+            maxLines: 5,
+            decoration: InputDecoration(
+              labelText: 'Description',
+              border: OutlineInputBorder(),
+            ),
+          ),
         ],
       ),
     );
