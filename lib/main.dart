@@ -13,7 +13,7 @@ class Laporin extends StatelessWidget {
     return MaterialApp(
       title: 'Laporin',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
       ),
       home: const Login(),
     );
