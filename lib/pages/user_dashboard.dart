@@ -61,7 +61,33 @@ class _UserDashboardState extends State<UserDashboard> {
                                 icon: Icon(Icons.camera_alt_outlined),
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => Dialog(
+                                      child: Stack(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(6),
+                                            child: Image.file(imageFile!),
+                                          ),
+                                          Positioned(
+                                            right: 4,
+                                            top: 4,
+                                            child: IconButton(
+                                              onPressed: () => Navigator.pop(context),
+                                              style: IconButton.styleFrom(
+                                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                              ),
+                                              color: Theme.of(context).colorScheme.onPrimary,
+                                              icon: Icon(Icons.close),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
                                 style: IconButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
                                 color: Theme.of(context).colorScheme.onPrimary,
                                 icon: Icon(Icons.fullscreen_rounded),
