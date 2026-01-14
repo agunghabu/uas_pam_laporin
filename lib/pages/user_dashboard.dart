@@ -50,7 +50,8 @@ class UserDashboard extends StatelessWidget {
           TextField(
             maxLines: 3,
             decoration: InputDecoration(
-              labelText: 'Description',
+              labelText:
+                  'Additional description\n(Optional, e.g., location details)',
               border: OutlineInputBorder(),
             ),
           ),
