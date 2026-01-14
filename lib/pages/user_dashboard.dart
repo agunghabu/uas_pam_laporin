@@ -16,7 +16,9 @@ class UserDashboard extends StatelessWidget {
             child: Container(
               height: 220,
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.white24),
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.outline,
+                ),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
