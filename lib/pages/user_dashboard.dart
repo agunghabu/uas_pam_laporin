@@ -26,8 +26,10 @@ class _UserDashboardState extends State<UserDashboard> {
         children: [
           InkWell(
             onTap: () async {
-              imageFile = await takePhoto(_picker);
-              setState(() {});
+              if (imageFile == null) {
+                imageFile = await takePhoto(_picker);
+                setState(() {});
+              }
             },
             borderRadius: BorderRadius.circular(6),
             child: Container(
