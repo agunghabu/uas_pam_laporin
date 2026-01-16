@@ -184,6 +184,19 @@ class _UserDashboardState extends State<UserDashboard> {
               //   'Area: $selectedArea'
               //   'Unit: $selectedUnit',
               // );
+              if (imageFile == null || titleCtrl.text.isEmpty || selectedArea == -1 || selectedUnit == -1) {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    icon: Icon(Icons.warning_amber_rounded, color: Colors.redAccent, size: 48),
+                    title: Text('Incomplete Report'),
+                    content: Text(
+                      'Please make sure to attach a photo, fill in the title, and select both area and unit.',
+                    ),
+                    actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text('OK'))],
+                  ),
+                );
+              }
             },
             child: Text('Submit Report'),
           ),
