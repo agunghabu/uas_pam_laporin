@@ -40,8 +40,26 @@ class _UserDashboardState extends State<UserDashboard> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        LText.bodyMedium(context, 'Name: {User}'),
-                        LText.bodyMedium(context, 'NIM: 0000000000'),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.person_outline_rounded, size: 16),
+                                SizedBox(width: 4),
+                                LText.bodyMedium(context, 'habuhenka'),
+                              ],
+                            ),
+                            Text(' | ', style: Theme.of(context).textTheme.bodyMedium),
+                            Row(
+                              children: [
+                                Icon(Icons.numbers_rounded, size: 16),
+                                SizedBox(width: 4),
+                                LText.bodyMedium(context, '3012310701'),
+                              ],
+                            ),
+                          ],
+                        ),
                         SizedBox(height: 8),
                         Divider(),
                         Row(
