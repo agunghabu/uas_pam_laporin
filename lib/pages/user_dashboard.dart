@@ -179,11 +179,12 @@ class _UserDashboardState extends State<UserDashboard> {
                 ),
                 SizedBox(height: 16),
                 LTextField(
+                  maxLines: 3,
+                  maxLengths: 175,
                   controller: descCtrl,
                   icon: Icons.description_outlined,
                   labelText: "Additional description\n(Optional, e.g., location details, etc.)",
                   hintText: 'e.g., The AC has been leaking water for two days.',
-                  maxLines: 3,
                 ),
                 SizedBox(height: 16),
                 Row(
