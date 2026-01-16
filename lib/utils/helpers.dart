@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-getBuildingEntries(int selectedArea) {
+List<DropdownMenuEntry<int>> getBuildingEntries(int selectedArea) {
   if (selectedArea == 0) {
     return [
       DropdownMenuEntry(value: 0, label: 'A1'),
