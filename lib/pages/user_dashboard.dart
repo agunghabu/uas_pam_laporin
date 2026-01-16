@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uas_pam_laporin/utils/widgets.dart';
 
 import '../utils/helpers.dart';
 
@@ -16,6 +17,7 @@ class _UserDashboardState extends State<UserDashboard> {
   File? imageFile;
   int selectedArea = -1;
   final ImagePicker _picker = ImagePicker();
+  final TextEditingController titleCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -111,13 +113,7 @@ class _UserDashboardState extends State<UserDashboard> {
             ),
           ),
           SizedBox(height: 16),
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Title',
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.title_outlined),
-            ),
-          ),
+          LTextField(controller: titleCtrl, labelText: "Title", hintText: "e.g., Broken AC in Room 101"),
           SizedBox(height: 16),
           TextField(
             maxLines: 3,
