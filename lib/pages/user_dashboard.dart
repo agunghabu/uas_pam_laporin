@@ -231,7 +231,7 @@ class _UserDashboardState extends State<UserDashboard> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
+                        padding: EdgeInsets.all(12),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -291,21 +291,25 @@ class _UserDashboardState extends State<UserDashboard> {
                               'The AC has been leaking water for two days.',
                               textAlign: TextAlign.center,
                             ),
+                            SizedBox(height: 4),
                             Divider(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                TextButton.icon(
-                                  onPressed: () {},
-                                  label: Text('Reject'),
-                                  icon: Icon(Icons.close_rounded),
+                            SizedBox(height: 4),
+                            Container(
+                              height: 44,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.hourglass_empty, size: 16),
+                                    SizedBox(width: 4),
+                                    Text('Active', style: Theme.of(context).textTheme.bodyMedium),
+                                  ],
                                 ),
-                                FilledButton.icon(
-                                  onPressed: () {},
-                                  label: Text('Accept'),
-                                  icon: Icon(Icons.check_rounded),
-                                ),
-                              ],
+                              ),
                             ),
                           ],
                         ),
