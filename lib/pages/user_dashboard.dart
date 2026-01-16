@@ -227,6 +227,7 @@ class _UserDashboardState extends State<UserDashboard> {
                 ),
                 SizedBox(height: 16),
                 LTextField(
+                  maxLengths: 30,
                   controller: titleCtrl,
                   icon: Icons.title_outlined,
                   labelText: "Title",
