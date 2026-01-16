@@ -27,7 +27,7 @@ class AdminDashboard extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Theme.of(context).colorScheme.outline),
-                    borderRadius: BorderRadius.circular(6),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -35,7 +35,7 @@ class AdminDashboard extends StatelessWidget {
                       SizedBox(
                         height: 220,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.vertical(top: Radius.circular(6), bottom: Radius.circular(16)),
+                          borderRadius: BorderRadius.circular(12),
                           child: Image.network(
                             'https://www.siliconera.com/wp-content/uploads/2025/02/wuthering-waves-version-12.png',
                             fit: BoxFit.cover,
