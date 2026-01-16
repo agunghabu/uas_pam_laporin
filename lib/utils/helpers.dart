@@ -10,25 +10,12 @@ getBuildingEntries(int selectedArea) {
       DropdownMenuEntry(value: 2, label: 'A3'),
     ];
   } else if (selectedArea == 1) {
-    return [
-      DropdownMenuEntry(value: 0, label: 'B1'),
-      DropdownMenuEntry(value: 1, label: 'B2'),
-      DropdownMenuEntry(value: 2, label: 'B3'),
-    ];
+    return [DropdownMenuEntry(value: 0, label: 'B1'), DropdownMenuEntry(value: 1, label: 'B2')];
   } else if (selectedArea == 2) {
-    return [
-      DropdownMenuEntry(value: 0, label: 'C1'),
-      DropdownMenuEntry(value: 1, label: 'C2'),
-      DropdownMenuEntry(value: 2, label: 'C3'),
-    ];
+    return [DropdownMenuEntry(value: 0, label: 'C1')];
   } else {
     return [
-      DropdownMenuEntry(
-        value: 0,
-        enabled: false,
-        label: 'Select an area first',
-        leadingIcon: Icon(Icons.info_outline),
-      ),
+      DropdownMenuEntry(value: 0, enabled: false, label: 'Select an area first', leadingIcon: Icon(Icons.info_outline)),
     ];
   }
 }

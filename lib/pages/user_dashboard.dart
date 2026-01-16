@@ -16,9 +16,11 @@ class UserDashboard extends StatefulWidget {
 class _UserDashboardState extends State<UserDashboard> {
   File? imageFile;
   int selectedArea = -1;
+  int selectedUnit = -1;
   final ImagePicker _picker = ImagePicker();
   final TextEditingController titleCtrl = TextEditingController();
   final TextEditingController descCtrl = TextEditingController();
+  final TextEditingController unitCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -135,12 +137,13 @@ class _UserDashboardState extends State<UserDashboard> {
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return LDropdownMenu(
-                      onSelected: (value) {
-                        setState(() => selectedArea = value ?? 0);
-                      },
-                      initialSelection: 0,
+                      onSelected: (value) => setState(() {
+                        unitCtrl.clear();
+                        selectedArea = value ?? 0;
+                      }),
                       labelText: 'Area',
                       width: constraints.maxWidth,
+                      initialSelection: selectedArea,
                       leadingIcon: Icons.location_on_outlined,
                       dropdownMenuEntries: [
                         DropdownMenuEntry(value: 0, label: 'Campus A'),
@@ -156,7 +159,9 @@ class _UserDashboardState extends State<UserDashboard> {
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return DropdownMenu(
+                      controller: unitCtrl,
                       width: constraints.maxWidth,
+                      initialSelection: selectedUnit,
                       leadingIcon: Icon(Icons.apartment_outlined),
                       dropdownMenuEntries: getBuildingEntries(selectedArea),
                       label: Text('Unit'),
@@ -169,7 +174,7 @@ class _UserDashboardState extends State<UserDashboard> {
           SizedBox(height: 16),
           FilledButton(
             onPressed: () {
-              print('${titleCtrl.text}, ${descCtrl.text}');
+              // print('${titleCtrl.text}, ${descCtrl.text}');
             },
             child: Text('Submit Report'),
           ),
