@@ -38,10 +38,12 @@ class LDropdownMenu extends StatelessWidget {
   final int initialSelection;
   final IconData leadingIcon;
   final ValueChanged<int?>? onSelected;
+  final TextEditingController? controller;
   final List<DropdownMenuEntry<int>> dropdownMenuEntries;
   const LDropdownMenu({
     super.key,
     this.width,
+    this.controller,
     required this.onSelected,
     required this.labelText,
     required this.leadingIcon,
@@ -53,9 +55,10 @@ class LDropdownMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownMenu(
       width: width,
+      controller: controller,
       onSelected: onSelected,
-      initialSelection: initialSelection,
       leadingIcon: Icon(leadingIcon),
+      initialSelection: initialSelection,
       dropdownMenuEntries: dropdownMenuEntries,
       label: Text(labelText),
     );

@@ -139,6 +139,7 @@ class _UserDashboardState extends State<UserDashboard> {
                     return LDropdownMenu(
                       onSelected: (value) => setState(() {
                         unitCtrl.clear();
+                        selectedUnit = -1;
                         selectedArea = value ?? 0;
                       }),
                       labelText: 'Area',
@@ -158,13 +159,16 @@ class _UserDashboardState extends State<UserDashboard> {
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
-                    return DropdownMenu(
+                    return LDropdownMenu(
+                      onSelected: (value) => setState(() {
+                        selectedUnit = value ?? 0;
+                      }),
+                      labelText: 'Unit',
                       controller: unitCtrl,
                       width: constraints.maxWidth,
                       initialSelection: selectedUnit,
-                      leadingIcon: Icon(Icons.apartment_outlined),
+                      leadingIcon: Icons.location_on_outlined,
                       dropdownMenuEntries: getBuildingEntries(selectedArea),
-                      label: Text('Unit'),
                     );
                   },
                 ),
@@ -174,7 +178,12 @@ class _UserDashboardState extends State<UserDashboard> {
           SizedBox(height: 16),
           FilledButton(
             onPressed: () {
-              // print('${titleCtrl.text}, ${descCtrl.text}');
+              // print(
+              //   'Title: ${titleCtrl.text}'
+              //   'Description: ${descCtrl.text}'
+              //   'Area: $selectedArea'
+              //   'Unit: $selectedUnit',
+              // );
             },
             child: Text('Submit Report'),
           ),
