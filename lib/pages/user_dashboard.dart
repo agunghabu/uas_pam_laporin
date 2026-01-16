@@ -70,7 +70,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                 bottom: 4,
                                 child: Row(
                                   children: [
-                                    FilledButton.icon(
+                                    FilledButton.tonalIcon(
                                       onPressed: () async {
                                         imageFile = await takePhoto(_picker);
                                         setState(() {});
@@ -78,7 +78,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                       label: Text('Retake'),
                                       icon: Icon(Icons.camera_alt_outlined),
                                     ),
-                                    IconButton(
+                                    IconButton.filledTonal(
                                       onPressed: () {
                                         showDialog(
                                           context: context,
@@ -92,12 +92,8 @@ class _UserDashboardState extends State<UserDashboard> {
                                                 Positioned(
                                                   right: 4,
                                                   top: 4,
-                                                  child: IconButton(
+                                                  child: IconButton.filledTonal(
                                                     onPressed: () => Navigator.pop(context),
-                                                    style: IconButton.styleFrom(
-                                                      backgroundColor: Theme.of(context).colorScheme.primary,
-                                                    ),
-                                                    color: Theme.of(context).colorScheme.onPrimary,
                                                     icon: Icon(Icons.close),
                                                   ),
                                                 ),
@@ -106,10 +102,6 @@ class _UserDashboardState extends State<UserDashboard> {
                                           ),
                                         );
                                       },
-                                      style: IconButton.styleFrom(
-                                        backgroundColor: Theme.of(context).colorScheme.primary,
-                                      ),
-                                      color: Theme.of(context).colorScheme.onPrimary,
                                       icon: Icon(Icons.fullscreen_rounded),
                                     ),
                                   ],
