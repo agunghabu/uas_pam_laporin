@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LTextField extends StatelessWidget {
-  final int maxLines;
+  final int maxLines, maxLengths;
   final IconData icon;
   final bool obscureText;
   final String labelText, hintText;
@@ -13,6 +13,7 @@ class LTextField extends StatelessWidget {
     required this.labelText,
     required this.hintText,
     this.maxLines = 1,
+    this.maxLengths = 30,
     this.obscureText = false,
   });
 
@@ -20,6 +21,7 @@ class LTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       maxLines: maxLines,
+      maxLength: maxLengths,
       controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
