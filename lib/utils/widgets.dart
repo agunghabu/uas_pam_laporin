@@ -88,3 +88,21 @@ class LAlertDialog extends StatelessWidget {
     );
   }
 }
+
+class LText {
+  static headlineSmall(BuildContext context, String text, TextAlign align) {
+    return Text(text, style: Theme.of(context).textTheme.headlineSmall, textAlign: align);
+  }
+
+  static headlineMedium(BuildContext context, String text, TextAlign align) {
+    return Text(text, style: Theme.of(context).textTheme.headlineMedium, textAlign: align);
+  }
+
+  static bodyMedium(BuildContext context, String text, TextAlign align) {
+    return Text(text, style: Theme.of(context).textTheme.bodyMedium, textAlign: align);
+  }
+
+  static bodySmall(BuildContext context, String text, TextAlign align) {
+    return Text(text, style: Theme.of(context).textTheme.bodySmall, textAlign: align);
+  }
+}
