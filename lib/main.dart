@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uas_pam_laporin/pages/login.dart';
+import 'package:uas_pam_laporin/pages/admin_dashboard.dart';
+// import 'package:uas_pam_laporin/pages/login.dart';
 
 void main() {
   runApp(const Laporin());
@@ -15,7 +16,7 @@ class Laporin extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(brightness: Brightness.dark, seedColor: Colors.redAccent),
       ),
-      home: const Login(),
+      home: const AdminDashboard(),
     );
   }
 }

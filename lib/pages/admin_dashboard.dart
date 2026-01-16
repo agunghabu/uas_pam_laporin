@@ -5,6 +5,28 @@ class AdminDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return DefaultTabController(
+      length: 3,
+      initialIndex: 0,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Laporin'),
+          bottom: TabBar(
+            tabs: [
+              Tab(text: 'Pending', icon: Icon(Icons.warning_amber_rounded)),
+              Tab(text: 'Active', icon: Icon(Icons.hourglass_empty)),
+              Tab(text: 'Completed', icon: Icon(Icons.done_all)),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            Center(child: Text('Pending')),
+            Center(child: Text('Active')),
+            Center(child: Text('Completed')),
+          ],
+        ),
+      ),
+    );
   }
 }
