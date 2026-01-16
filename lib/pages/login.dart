@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:uas_pam_laporin/pages/user_dashboard.dart';
+import 'package:uas_pam_laporin/utils/widgets.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final TextEditingController nimCtrl = TextEditingController();
+  final TextEditingController passCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -13,32 +22,21 @@ class Login extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Login to proceed',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24),
-            ),
+            Text('Login to proceed', textAlign: TextAlign.center, style: TextStyle(fontSize: 24)),
             SizedBox(height: 16),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'NIM',
-                border: OutlineInputBorder(),
-              ),
-            ),
+            LTextField(controller: nimCtrl, icon: Icons.person_outline, labelText: "NIM", hintText: "e.g., 1234567890"),
             SizedBox(height: 16),
-            TextField(
+            LTextField(
+              icon: Icons.key,
               obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                border: OutlineInputBorder(),
-              ),
+              controller: passCtrl,
+              hintText: '********',
+              labelText: 'Password',
             ),
             SizedBox(height: 16),
             FilledButton(
-              onPressed: () => Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => UserDashboard()),
-              ),
+              onPressed: () =>
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserDashboard())),
               child: Text('Login'),
             ),
           ],
