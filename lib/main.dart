@@ -28,7 +28,7 @@ class Laporin extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           brightness: context.watch<ProviderAppTheme>().darkMode ? Brightness.dark : Brightness.light,
-          seedColor: Colors.redAccent,
+          seedColor: context.watch<ProviderAppTheme>().colors[context.watch<ProviderAppTheme>().colorIndex],
         ),
       ),
       home: const Login(),

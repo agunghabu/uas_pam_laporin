@@ -38,21 +38,37 @@ class _UserDashboardState extends State<UserDashboard> {
                     ],
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         LText.bodyMedium(context, 'Name: {User}'),
                         LText.bodyMedium(context, 'NIM: 0000000000'),
                         SizedBox(height: 8),
                         Divider(),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            Icon(Icons.dark_mode_outlined, size: 30),
+                            SizedBox(width: 16),
                             LText.bodyMedium(context, 'Dark Mode'),
+                            Spacer(),
                             Switch(
                               value: context.watch<ProviderAppTheme>().darkMode,
                               onChanged: (value) {
                                 context.read<ProviderAppTheme>().setDarkMode(value);
                               },
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 16),
+                        Row(
+                          children: [
+                            Icon(Icons.color_lens_outlined, size: 30),
+                            SizedBox(width: 16),
+                            LDropdownMenu(
+                              onSelected: (value) => context.read<ProviderAppTheme>().setColorIndex(value ?? 0),
+                              menuHeight: 200,
+                              labelText: 'Color Theme',
+                              initialSelection: context.read<ProviderAppTheme>().colorIndex,
+                              dropdownMenuEntries: context.read<ProviderAppTheme>().colorDropdownItems,
                             ),
                           ],
                         ),
@@ -202,7 +218,7 @@ class _UserDashboardState extends State<UserDashboard> {
                             }),
                             labelText: 'Area',
                             width: constraints.maxWidth,
-                            leadingIcon: Icons.location_on_outlined,
+                            leadingIcon: Icon(Icons.location_on_outlined),
                             initialSelection: context.read<ProviderSubmitReport>().selectedArea,
                             dropdownMenuEntries: [
                               DropdownMenuEntry(value: 0, label: 'Campus A'),
@@ -223,7 +239,7 @@ class _UserDashboardState extends State<UserDashboard> {
                             }),
                             labelText: 'Unit',
                             width: constraints.maxWidth,
-                            leadingIcon: Icons.apartment_outlined,
+                            leadingIcon: Icon(Icons.apartment_outlined),
                             controller: context.read<ProviderSubmitReport>().unitCtrl,
                             initialSelection: context.read<ProviderSubmitReport>().selectedUnit,
                             dropdownMenuEntries: getBuildingEntries(context.read<ProviderSubmitReport>().selectedArea),
