@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:uas_pam_laporin/pages/user_dashboard.dart';
-import 'package:uas_pam_laporin/pages/admin_dashboard.dart';
+import 'package:provider/provider.dart';
 import 'package:uas_pam_laporin/pages/login.dart';
+import 'package:uas_pam_laporin/provider/provider_login.dart';
+import 'package:uas_pam_laporin/provider/provider_submit_report.dart';
 
 void main() {
-  runApp(const Laporin());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProviderLogin()),
+        ChangeNotifierProvider(create: (_) => ProviderSubmitReport()),
+      ],
+      child: const Laporin(),
+    ),
+  );
 }
 
 class Laporin extends StatelessWidget {
