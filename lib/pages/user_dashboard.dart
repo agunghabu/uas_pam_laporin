@@ -18,6 +18,7 @@ class _UserDashboardState extends State<UserDashboard> {
   int selectedArea = -1;
   final ImagePicker _picker = ImagePicker();
   final TextEditingController titleCtrl = TextEditingController();
+  final TextEditingController descCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +114,12 @@ class _UserDashboardState extends State<UserDashboard> {
             ),
           ),
           SizedBox(height: 16),
-          LTextField(controller: titleCtrl, labelText: "Title", hintText: "e.g., Broken AC in Room 101"),
+          LTextField(
+            controller: titleCtrl,
+            icon: Icons.title_outlined,
+            labelText: "Title",
+            hintText: "e.g., Broken AC in Room 101",
+          ),
           SizedBox(height: 16),
           TextField(
             maxLines: 3,
