@@ -64,3 +64,27 @@ class LDropdownMenu extends StatelessWidget {
     );
   }
 }
+
+class LAlertDialog extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final String content;
+  final Color iconColor;
+  const LAlertDialog({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.content,
+    required this.iconColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      icon: Icon(icon, color: iconColor, size: 48),
+      title: Text(title),
+      content: Text(content),
+      actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text('OK'))],
+    );
+  }
+}

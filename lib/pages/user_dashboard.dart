@@ -187,13 +187,11 @@ class _UserDashboardState extends State<UserDashboard> {
               if (imageFile == null || titleCtrl.text.isEmpty || selectedArea == -1 || selectedUnit == -1) {
                 showDialog(
                   context: context,
-                  builder: (context) => AlertDialog(
-                    icon: Icon(Icons.warning_amber_rounded, color: Colors.redAccent, size: 48),
-                    title: Text('Incomplete Report'),
-                    content: Text(
-                      'Please make sure to attach a photo, fill in the title, and select both area and unit.',
-                    ),
-                    actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text('OK'))],
+                  builder: (context) => LAlertDialog(
+                    icon: Icons.warning_amber_rounded,
+                    title: 'Incomplete Report',
+                    content: 'Please make sure to attach a photo, fill in the title, and select both area and unit.',
+                    iconColor: Colors.redAccent,
                   ),
                 );
               }
