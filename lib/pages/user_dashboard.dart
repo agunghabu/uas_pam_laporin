@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:uas_pam_laporin/utils/widgets.dart';
 
+import '../provider/provider_submit_report.dart';
 import '../utils/helpers.dart';
 
 class UserDashboard extends StatefulWidget {
@@ -14,14 +13,7 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
-  File? imageFile;
   bool darkMode = true;
-  int selectedArea = -1;
-  int selectedUnit = -1;
-  final ImagePicker _picker = ImagePicker();
-  final TextEditingController titleCtrl = TextEditingController();
-  final TextEditingController descCtrl = TextEditingController();
-  final TextEditingController unitCtrl = TextEditingController();
   final TextEditingController currPassCtrl = TextEditingController();
   final TextEditingController newPassCtrl = TextEditingController();
   final TextEditingController confNewPassCtrl = TextEditingController();
@@ -143,9 +135,10 @@ class _UserDashboardState extends State<UserDashboard> {
               children: [
                 InkWell(
                   onTap: () async {
-                    if (imageFile == null) {
-                      imageFile = await takePhoto(_picker);
-                      setState(() {});
+                    if (context.read<ProviderSubmitReport>().imageFile == null) {
+                      context.read<ProviderSubmitReport>().setImageFile(
+                        await takePhoto(context.read<ProviderSubmitReport>().picker),
+                      );
                     }
                   },
                   borderRadius: BorderRadius.circular(6),
@@ -157,12 +150,16 @@ class _UserDashboardState extends State<UserDashboard> {
                     ),
                     child: Builder(
                       builder: (context) {
-                        if (imageFile != null) {
+                        if (context.watch<ProviderSubmitReport>().imageFile != null) {
                           return Stack(
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(6),
-                                child: Image.file(imageFile!, fit: BoxFit.cover, width: double.infinity),
+                                child: Image.file(
+                                  context.read<ProviderSubmitReport>().imageFile!,
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                ),
                               ),
                               Positioned(
                                 right: 4,
@@ -171,8 +168,9 @@ class _UserDashboardState extends State<UserDashboard> {
                                   children: [
                                     FilledButton.tonalIcon(
                                       onPressed: () async {
-                                        imageFile = await takePhoto(_picker);
-                                        setState(() {});
+                                        context.read<ProviderSubmitReport>().setImageFile(
+                                          await takePhoto(context.read<ProviderSubmitReport>().picker),
+                                        );
                                       },
                                       label: Text('Retake'),
                                       icon: Icon(Icons.camera_alt_outlined),
@@ -186,7 +184,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                               children: [
                                                 ClipRRect(
                                                   borderRadius: BorderRadius.circular(6),
-                                                  child: Image.file(imageFile!),
+                                                  child: Image.file(context.read<ProviderSubmitReport>().imageFile!),
                                                 ),
                                                 Positioned(
                                                   right: 4,
@@ -228,7 +226,7 @@ class _UserDashboardState extends State<UserDashboard> {
                 SizedBox(height: 16),
                 LTextField(
                   maxLengths: 30,
-                  controller: titleCtrl,
+                  controller: context.read<ProviderSubmitReport>().titleCtrl,
                   icon: Icons.title_outlined,
                   labelText: "Title",
                   hintText: "e.g., Broken AC in Room 101",
@@ -237,7 +235,7 @@ class _UserDashboardState extends State<UserDashboard> {
                 LTextField(
                   maxLines: 3,
                   maxLengths: 175,
-                  controller: descCtrl,
+                  controller: context.read<ProviderSubmitReport>().descCtrl,
                   icon: Icons.description_outlined,
                   labelText: "Additional description\n(Optional, e.g., location details, etc.)",
                   hintText: 'e.g., The AC has been leaking water for two days.',
@@ -250,14 +248,14 @@ class _UserDashboardState extends State<UserDashboard> {
                         builder: (context, constraints) {
                           return LDropdownMenu(
                             onSelected: (value) => setState(() {
-                              unitCtrl.clear();
-                              selectedUnit = -1;
-                              selectedArea = value ?? 0;
+                              context.read<ProviderSubmitReport>().unitCtrl.clear();
+                              context.read<ProviderSubmitReport>().setSelectedUnit(-1);
+                              context.read<ProviderSubmitReport>().setSelectedArea(value ?? 0);
                             }),
                             labelText: 'Area',
                             width: constraints.maxWidth,
-                            initialSelection: selectedArea,
                             leadingIcon: Icons.location_on_outlined,
+                            initialSelection: context.read<ProviderSubmitReport>().selectedArea,
                             dropdownMenuEntries: [
                               DropdownMenuEntry(value: 0, label: 'Campus A'),
                               DropdownMenuEntry(value: 1, label: 'Campus B'),
@@ -273,14 +271,14 @@ class _UserDashboardState extends State<UserDashboard> {
                         builder: (context, constraints) {
                           return LDropdownMenu(
                             onSelected: (value) => setState(() {
-                              selectedUnit = value ?? 0;
+                              context.read<ProviderSubmitReport>().setSelectedUnit(value ?? 0);
                             }),
                             labelText: 'Unit',
-                            controller: unitCtrl,
                             width: constraints.maxWidth,
-                            initialSelection: selectedUnit,
                             leadingIcon: Icons.apartment_outlined,
-                            dropdownMenuEntries: getBuildingEntries(selectedArea),
+                            controller: context.read<ProviderSubmitReport>().unitCtrl,
+                            initialSelection: context.read<ProviderSubmitReport>().selectedUnit,
+                            dropdownMenuEntries: getBuildingEntries(context.read<ProviderSubmitReport>().selectedArea),
                           );
                         },
                       ),
@@ -291,12 +289,12 @@ class _UserDashboardState extends State<UserDashboard> {
                 FilledButton(
                   onPressed: () {
                     // print(
-                    //   'Title: ${titleCtrl.text}'
-                    //   'Description: ${descCtrl.text}'
-                    //   'Area: $selectedArea'
-                    //   'Unit: $selectedUnit',
+                    //   'Title: ${context.read<ProviderSubmitReport>().titleCtrl.text}, '
+                    //   'Description: ${context.read<ProviderSubmitReport>().descCtrl.text}, '
+                    //   'Area: ${context.read<ProviderSubmitReport>().selectedArea}, '
+                    //   'Unit: ${context.read<ProviderSubmitReport>().selectedUnit}',
                     // );
-                    if (imageFile == null || titleCtrl.text.isEmpty || selectedArea == -1 || selectedUnit == -1) {
+                    if (!context.read<ProviderSubmitReport>().validateInputs()) {
                       showDialog(
                         context: context,
                         builder: (context) => LAlertDialog(
