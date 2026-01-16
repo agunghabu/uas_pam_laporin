@@ -300,8 +300,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                   label: Text('Reject'),
                                   icon: Icon(Icons.close_rounded),
                                 ),
-                                FilledButton(onPressed: () {}, child: Text('See details')),
-                                TextButton.icon(
+                                FilledButton.icon(
                                   onPressed: () {},
                                   label: Text('Accept'),
                                   icon: Icon(Icons.check_rounded),
