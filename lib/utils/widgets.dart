@@ -90,19 +90,19 @@ class LAlertDialog extends StatelessWidget {
 }
 
 class LText {
-  static headlineSmall(BuildContext context, String text, {TextAlign? textAlign = TextAlign.center}) {
+  static headlineSmall(BuildContext context, String text, {TextAlign? textAlign = TextAlign.left}) {
     return Text(text, style: Theme.of(context).textTheme.headlineSmall, textAlign: textAlign);
   }
 
-  static headlineMedium(BuildContext context, String text, {TextAlign? textAlign = TextAlign.center}) {
+  static headlineMedium(BuildContext context, String text, {TextAlign? textAlign = TextAlign.left}) {
     return Text(text, style: Theme.of(context).textTheme.headlineMedium, textAlign: textAlign);
   }
 
-  static bodyMedium(BuildContext context, String text, {TextAlign? textAlign = TextAlign.center}) {
+  static bodyMedium(BuildContext context, String text, {TextAlign? textAlign = TextAlign.left}) {
     return Text(text, style: Theme.of(context).textTheme.bodyMedium, textAlign: textAlign);
   }
 
-  static bodySmall(BuildContext context, String text, {TextAlign? textAlign = TextAlign.center}) {
+  static bodySmall(BuildContext context, String text, {TextAlign? textAlign = TextAlign.left}) {
     return Text(text, style: Theme.of(context).textTheme.bodySmall, textAlign: textAlign);
   }
 }
