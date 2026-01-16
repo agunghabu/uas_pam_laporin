@@ -34,13 +34,17 @@ class LTextField extends StatelessWidget {
 
 class LDropdownMenu extends StatelessWidget {
   final double? width;
+  final String labelText;
   final int initialSelection;
-  final List<DropdownMenuEntry<int>> dropdownMenuEntries;
+  final IconData leadingIcon;
   final ValueChanged<int?>? onSelected;
+  final List<DropdownMenuEntry<int>> dropdownMenuEntries;
   const LDropdownMenu({
     super.key,
     this.width,
     required this.onSelected,
+    required this.labelText,
+    required this.leadingIcon,
     required this.initialSelection,
     required this.dropdownMenuEntries,
   });
@@ -51,9 +55,9 @@ class LDropdownMenu extends StatelessWidget {
       width: width,
       onSelected: onSelected,
       initialSelection: initialSelection,
-      leadingIcon: Icon(Icons.location_on_outlined),
+      leadingIcon: Icon(leadingIcon),
       dropdownMenuEntries: dropdownMenuEntries,
-      label: Text('Area'),
+      label: Text(labelText),
     );
   }
 }

@@ -139,6 +139,9 @@ class _UserDashboardState extends State<UserDashboard> {
                         setState(() => selectedArea = value ?? 0);
                       },
                       initialSelection: 0,
+                      labelText: 'Area',
+                      width: constraints.maxWidth,
+                      leadingIcon: Icons.location_on_outlined,
                       dropdownMenuEntries: [
                         DropdownMenuEntry(value: 0, label: 'Campus A'),
                         DropdownMenuEntry(value: 1, label: 'Campus B'),
