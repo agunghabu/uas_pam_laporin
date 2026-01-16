@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uas_pam_laporin/provider/provider_theme.dart';
 import 'package:uas_pam_laporin/utils/widgets.dart';
 
 import '../provider/provider_submit_report.dart';
@@ -13,7 +14,6 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
-  bool darkMode = true;
   final TextEditingController currPassCtrl = TextEditingController();
   final TextEditingController newPassCtrl = TextEditingController();
   final TextEditingController confNewPassCtrl = TextEditingController();
@@ -53,9 +53,9 @@ class _UserDashboardState extends State<UserDashboard> {
                           children: [
                             LText.bodyMedium(context, 'Dark Mode'),
                             Switch(
-                              value: darkMode,
+                              value: context.watch<ProviderAppTheme>().darkMode,
                               onChanged: (value) {
-                                darkMode = value;
+                                context.read<ProviderAppTheme>().setDarkMode(value);
                               },
                             ),
                           ],

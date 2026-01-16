@@ -3,12 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:uas_pam_laporin/pages/login.dart';
 import 'package:uas_pam_laporin/provider/provider_login.dart';
 import 'package:uas_pam_laporin/provider/provider_submit_report.dart';
+import 'package:uas_pam_laporin/provider/provider_theme.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProviderLogin()),
+        ChangeNotifierProvider(create: (_) => ProviderAppTheme()),
         ChangeNotifierProvider(create: (_) => ProviderSubmitReport()),
       ],
       child: const Laporin(),
@@ -24,7 +26,10 @@ class Laporin extends StatelessWidget {
     return MaterialApp(
       title: 'Laporin',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(brightness: Brightness.dark, seedColor: Colors.redAccent),
+        colorScheme: ColorScheme.fromSeed(
+          brightness: context.watch<ProviderAppTheme>().darkMode ? Brightness.dark : Brightness.light,
+          seedColor: Colors.redAccent,
+        ),
       ),
       home: const Login(),
     );
