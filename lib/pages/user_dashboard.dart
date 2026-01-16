@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uas_pam_laporin/provider/provider_change_pass.dart';
 import 'package:uas_pam_laporin/provider/provider_theme.dart';
 import 'package:uas_pam_laporin/utils/widgets.dart';
 
@@ -14,10 +15,6 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
-  final TextEditingController currPassCtrl = TextEditingController();
-  final TextEditingController newPassCtrl = TextEditingController();
-  final TextEditingController confNewPassCtrl = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -73,7 +70,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     LTextField(
-                                      controller: currPassCtrl,
+                                      controller: context.read<ProviderChangePass>().currPassCtrl,
                                       icon: Icons.key_outlined,
                                       obscureText: true,
                                       hintText: '********',
@@ -81,7 +78,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                     ),
                                     SizedBox(height: 16),
                                     LTextField(
-                                      controller: newPassCtrl,
+                                      controller: context.read<ProviderChangePass>().newPassCtrl,
                                       icon: Icons.key_outlined,
                                       obscureText: true,
                                       hintText: '********',
@@ -89,7 +86,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                     ),
                                     SizedBox(height: 16),
                                     LTextField(
-                                      controller: confNewPassCtrl,
+                                      controller: context.read<ProviderChangePass>().confNewPassCtrl,
                                       icon: Icons.key_outlined,
                                       obscureText: true,
                                       hintText: '********',
