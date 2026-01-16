@@ -121,13 +121,12 @@ class _UserDashboardState extends State<UserDashboard> {
             hintText: "e.g., Broken AC in Room 101",
           ),
           SizedBox(height: 16),
-          TextField(
+          LTextField(
+            controller: descCtrl,
+            icon: Icons.description_outlined,
+            labelText: "Additional description\n(Optional, e.g., location details, etc.)",
+            hintText: 'e.g., The AC has been leaking water for two days.',
             maxLines: 3,
-            decoration: InputDecoration(
-              labelText: 'Additional description\n(Optional, e.g., location details)',
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.description_outlined),
-            ),
           ),
           SizedBox(height: 16),
           Row(
