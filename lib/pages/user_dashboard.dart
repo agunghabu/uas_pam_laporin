@@ -167,7 +167,7 @@ class _UserDashboardState extends State<UserDashboard> {
                       controller: unitCtrl,
                       width: constraints.maxWidth,
                       initialSelection: selectedUnit,
-                      leadingIcon: Icons.location_on_outlined,
+                      leadingIcon: Icons.apartment_outlined,
                       dropdownMenuEntries: getBuildingEntries(selectedArea),
                     );
                   },
