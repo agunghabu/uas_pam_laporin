@@ -17,7 +17,7 @@ class Laporin extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(brightness: Brightness.dark, seedColor: Colors.redAccent),
       ),
-      home: const UserDashboard(),
+      home: const Login(),
     );
   }
 }
