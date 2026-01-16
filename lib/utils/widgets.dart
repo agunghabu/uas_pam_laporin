@@ -72,8 +72,10 @@ class LAlertDialog extends StatelessWidget {
   final IconData icon;
   final Widget content;
   final Color iconColor;
+  final List<Widget>? actions;
   const LAlertDialog({
     super.key,
+    this.actions,
     required this.icon,
     required this.title,
     required this.content,
@@ -85,8 +87,8 @@ class LAlertDialog extends StatelessWidget {
     return AlertDialog(
       icon: Icon(icon, color: iconColor, size: 48),
       title: Text(title),
+      actions: actions ?? [TextButton(onPressed: () => Navigator.pop(context), child: Text('OK'))],
       content: content,
-      actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text('OK'))],
     );
   }
 }
