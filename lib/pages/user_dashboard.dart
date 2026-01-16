@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uas_pam_laporin/provider/provider_change_pass.dart';
 import 'package:uas_pam_laporin/provider/provider_theme.dart';
 import 'package:uas_pam_laporin/utils/widgets.dart';
 
@@ -56,54 +55,6 @@ class _UserDashboardState extends State<UserDashboard> {
                               },
                             ),
                           ],
-                        ),
-                        ListTile(
-                          onTap: () {
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (context) => LAlertDialog(
-                                icon: Icons.key_rounded,
-                                title: 'Change Password',
-                                iconColor: Theme.of(context).colorScheme.onSurfaceVariant,
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    LTextField(
-                                      controller: context.read<ProviderChangePass>().currPassCtrl,
-                                      icon: Icons.key_outlined,
-                                      obscureText: true,
-                                      hintText: '********',
-                                      labelText: 'Current Password',
-                                    ),
-                                    SizedBox(height: 16),
-                                    LTextField(
-                                      controller: context.read<ProviderChangePass>().newPassCtrl,
-                                      icon: Icons.key_outlined,
-                                      obscureText: true,
-                                      hintText: '********',
-                                      labelText: 'New Password',
-                                    ),
-                                    SizedBox(height: 16),
-                                    LTextField(
-                                      controller: context.read<ProviderChangePass>().confNewPassCtrl,
-                                      icon: Icons.key_outlined,
-                                      obscureText: true,
-                                      hintText: '********',
-                                      labelText: 'Confirm New Password',
-                                    ),
-                                  ],
-                                ),
-                                actions: [
-                                  TextButton(onPressed: () => Navigator.pop(context), child: Text('Cancel')),
-                                  FilledButton(onPressed: () => Navigator.pop(context), child: Text('Change')),
-                                ],
-                              ),
-                            );
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          title: LText.bodyMedium(context, 'Change Password'),
-                          trailing: Icon(Icons.open_in_new_rounded),
                         ),
                       ],
                     ),
