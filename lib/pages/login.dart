@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uas_pam_laporin/pages/user_dashboard.dart';
+import 'package:uas_pam_laporin/utils/helpers.dart';
 import 'package:uas_pam_laporin/utils/widgets.dart';
 
 class Login extends StatefulWidget {
@@ -34,11 +35,7 @@ class _LoginState extends State<Login> {
               labelText: 'Password',
             ),
             SizedBox(height: 16),
-            FilledButton(
-              onPressed: () =>
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserDashboard())),
-              child: Text('Login'),
-            ),
+            FilledButton(onPressed: () => pushReplace(context, UserDashboard()), child: Text('Login')),
           ],
         ),
       ),
