@@ -21,9 +21,9 @@ class Login extends StatelessWidget {
             LText.headlineMedium(context, 'Login to proceed', textAlign: TextAlign.center),
             SizedBox(height: 32),
             LTextField(
-              controller: context.read<ProviderLogin>().nimCtrl,
-              icon: Icons.person_outline,
-              labelText: "NIM",
+              controller: context.read<ProviderLogin>().idCtrl,
+              icon: Icons.numbers_rounded,
+              labelText: "ID",
               hintText: "0000000000",
             ),
             SizedBox(height: 16),
