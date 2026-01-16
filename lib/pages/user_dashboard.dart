@@ -114,7 +114,11 @@ class _UserDashboardState extends State<UserDashboard> {
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.camera_alt_outlined, size: 48, color: Colors.white24),
+                              Icon(
+                                Icons.camera_alt_outlined,
+                                size: 48,
+                                color: Theme.of(context).colorScheme.outlineVariant,
+                              ),
                               Text('Tap to take photo', style: TextStyle(color: Theme.of(context).colorScheme.outline)),
                             ],
                           );
