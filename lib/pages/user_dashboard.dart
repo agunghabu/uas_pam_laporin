@@ -15,6 +15,7 @@ class UserDashboard extends StatefulWidget {
 
 class _UserDashboardState extends State<UserDashboard> {
   File? imageFile;
+  bool darkMode = true;
   int selectedArea = -1;
   int selectedUnit = -1;
   final ImagePicker _picker = ImagePicker();
@@ -30,7 +31,49 @@ class _UserDashboardState extends State<UserDashboard> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Welcome {User}'),
-          actions: [TextButton(onPressed: () {}, child: Icon(Icons.bedtime_outlined, size: 24))],
+          actions: [
+            InkWell(
+              borderRadius: BorderRadius.circular(24),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => LAlertDialog(
+                    icon: Icons.category_outlined,
+                    title: 'Extra',
+                    iconColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        LText.bodyMedium(context, 'Name: {User}'),
+                        LText.bodyMedium(context, 'NIM: 0000000000'),
+                        SizedBox(height: 8),
+                        Divider(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            LText.bodyMedium(context, 'Dark Mode'),
+                            Switch(
+                              value: darkMode,
+                              onChanged: (value) {
+                                darkMode = value;
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+              child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(shape: BoxShape.circle),
+                child: Icon(Icons.category_outlined, size: 26),
+              ),
+            ),
+            SizedBox(width: 8),
+          ],
           bottom: TabBar(
             tabs: [
               Tab(text: 'Submit Report', icon: Icon(Icons.send_rounded)),
@@ -202,8 +245,9 @@ class _UserDashboardState extends State<UserDashboard> {
                         builder: (context) => LAlertDialog(
                           icon: Icons.warning_amber_rounded,
                           title: 'Incomplete Report',
-                          content:
-                              'Please make sure to attach a photo, fill in the title, and select both area and unit.',
+                          content: Text(
+                            'Please make sure to attach a photo, fill in the title, and select both area and unit.',
+                          ),
                           iconColor: Colors.redAccent,
                         ),
                       );
