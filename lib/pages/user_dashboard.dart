@@ -134,19 +134,16 @@ class _UserDashboardState extends State<UserDashboard> {
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
-                    return DropdownMenu(
+                    return LDropdownMenu(
                       onSelected: (value) {
                         setState(() => selectedArea = value ?? 0);
                       },
-                      initialSelection: -1,
-                      width: constraints.maxWidth,
-                      leadingIcon: Icon(Icons.location_on_outlined),
+                      initialSelection: 0,
                       dropdownMenuEntries: [
                         DropdownMenuEntry(value: 0, label: 'Campus A'),
                         DropdownMenuEntry(value: 1, label: 'Campus B'),
                         DropdownMenuEntry(value: 2, label: 'Campus C'),
                       ],
-                      label: Text('Area'),
                     );
                   },
                 ),
@@ -167,7 +164,12 @@ class _UserDashboardState extends State<UserDashboard> {
             ],
           ),
           SizedBox(height: 16),
-          FilledButton(onPressed: () {}, child: Text('Submit Report')),
+          FilledButton(
+            onPressed: () {
+              print('${titleCtrl.text}, ${descCtrl.text}');
+            },
+            child: Text('Submit Report'),
+          ),
         ],
       ),
     );

@@ -31,3 +31,29 @@ class LTextField extends StatelessWidget {
     );
   }
 }
+
+class LDropdownMenu extends StatelessWidget {
+  final double? width;
+  final int initialSelection;
+  final List<DropdownMenuEntry<int>> dropdownMenuEntries;
+  final ValueChanged<int?>? onSelected;
+  const LDropdownMenu({
+    super.key,
+    this.width,
+    required this.onSelected,
+    required this.initialSelection,
+    required this.dropdownMenuEntries,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownMenu(
+      width: width,
+      onSelected: onSelected,
+      initialSelection: initialSelection,
+      leadingIcon: Icon(Icons.location_on_outlined),
+      dropdownMenuEntries: dropdownMenuEntries,
+      label: Text('Area'),
+    );
+  }
+}
