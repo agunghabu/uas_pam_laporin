@@ -23,9 +23,9 @@ class _LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Login to proceed', textAlign: TextAlign.center, style: TextStyle(fontSize: 24)),
-            SizedBox(height: 16),
-            LTextField(controller: nimCtrl, icon: Icons.person_outline, labelText: "NIM", hintText: "e.g., 1234567890"),
+            Text('Login to proceed', style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
+            SizedBox(height: 32),
+            LTextField(controller: nimCtrl, icon: Icons.person_outline, labelText: "NIM", hintText: "0000000000"),
             SizedBox(height: 16),
             LTextField(
               icon: Icons.key,
