@@ -45,7 +45,7 @@ class AdminDashboard extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
+                        padding: EdgeInsets.fromLTRB(12, 12, 12, 8),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -105,6 +105,7 @@ class AdminDashboard extends StatelessWidget {
                               'The AC has been leaking water for two days.',
                               textAlign: TextAlign.center,
                             ),
+                            SizedBox(height: 4),
                             Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
