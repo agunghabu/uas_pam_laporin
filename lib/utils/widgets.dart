@@ -68,7 +68,7 @@ class LDropdownMenu extends StatelessWidget {
 class LAlertDialog extends StatelessWidget {
   final String title;
   final IconData icon;
-  final String content;
+  final Widget content;
   final Color iconColor;
   const LAlertDialog({
     super.key,
@@ -83,7 +83,7 @@ class LAlertDialog extends StatelessWidget {
     return AlertDialog(
       icon: Icon(icon, color: iconColor, size: 48),
       title: Text(title),
-      content: Text(content),
+      content: content,
       actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text('OK'))],
     );
   }
