@@ -41,9 +41,13 @@ class _UserDashboardState extends State<UserDashboard> {
                     icon: Icons.category_outlined,
                     title: 'Extra',
                     iconColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                    actions: [
+                      TextButton(onPressed: () => Navigator.pop(context), child: Text('Logout')),
+                      FilledButton(onPressed: () => Navigator.pop(context), child: Text('OK')),
+                    ],
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         LText.bodyMedium(context, 'Name: {User}'),
                         LText.bodyMedium(context, 'NIM: 0000000000'),
@@ -60,6 +64,12 @@ class _UserDashboardState extends State<UserDashboard> {
                               },
                             ),
                           ],
+                        ),
+                        ListTile(
+                          onTap: () {},
+                          contentPadding: EdgeInsets.zero,
+                          title: LText.bodyMedium(context, 'Change Password'),
+                          trailing: Icon(Icons.open_in_new_rounded),
                         ),
                       ],
                     ),
