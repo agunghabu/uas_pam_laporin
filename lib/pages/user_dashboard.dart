@@ -22,6 +22,9 @@ class _UserDashboardState extends State<UserDashboard> {
   final TextEditingController titleCtrl = TextEditingController();
   final TextEditingController descCtrl = TextEditingController();
   final TextEditingController unitCtrl = TextEditingController();
+  final TextEditingController currPassCtrl = TextEditingController();
+  final TextEditingController newPassCtrl = TextEditingController();
+  final TextEditingController confNewPassCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +69,49 @@ class _UserDashboardState extends State<UserDashboard> {
                           ],
                         ),
                         ListTile(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pop(context);
+                            showDialog(
+                              context: context,
+                              builder: (context) => LAlertDialog(
+                                icon: Icons.key_rounded,
+                                title: 'Change Password',
+                                iconColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    LTextField(
+                                      controller: currPassCtrl,
+                                      icon: Icons.key_outlined,
+                                      obscureText: true,
+                                      hintText: '********',
+                                      labelText: 'Current Password',
+                                    ),
+                                    SizedBox(height: 16),
+                                    LTextField(
+                                      controller: newPassCtrl,
+                                      icon: Icons.key_outlined,
+                                      obscureText: true,
+                                      hintText: '********',
+                                      labelText: 'New Password',
+                                    ),
+                                    SizedBox(height: 16),
+                                    LTextField(
+                                      controller: confNewPassCtrl,
+                                      icon: Icons.key_outlined,
+                                      obscureText: true,
+                                      hintText: '********',
+                                      labelText: 'Confirm New Password',
+                                    ),
+                                  ],
+                                ),
+                                actions: [
+                                  TextButton(onPressed: () => Navigator.pop(context), child: Text('Cancel')),
+                                  FilledButton(onPressed: () => Navigator.pop(context), child: Text('Change')),
+                                ],
+                              ),
+                            );
+                          },
                           contentPadding: EdgeInsets.zero,
                           title: LText.bodyMedium(context, 'Change Password'),
                           trailing: Icon(Icons.open_in_new_rounded),
