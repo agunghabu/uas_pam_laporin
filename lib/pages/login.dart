@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Login to proceed', style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
+            LText.headlineMedium(context, 'Login to proceed'),
             SizedBox(height: 32),
             LTextField(controller: nimCtrl, icon: Icons.person_outline, labelText: "NIM", hintText: "0000000000"),
             SizedBox(height: 16),
