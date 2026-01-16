@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:uas_pam_laporin/utils/variables.dart';
 import 'package:uas_pam_laporin/utils/widgets.dart';
 
 import '../utils/helpers.dart';
@@ -31,14 +30,7 @@ class _UserDashboardState extends State<UserDashboard> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Welcome {User}'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                setState(() => AppTheme.appBrightness = Brightness.light);
-              },
-              child: Icon(Icons.bedtime_outlined, size: 24),
-            ),
-          ],
+          actions: [TextButton(onPressed: () {}, child: Icon(Icons.bedtime_outlined, size: 24))],
           bottom: TabBar(
             tabs: [
               Tab(text: 'Submit Report', icon: Icon(Icons.add_circle_outline)),
