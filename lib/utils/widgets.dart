@@ -38,8 +38,9 @@ class LTextField extends StatelessWidget {
 class LDropdownMenu extends StatelessWidget {
   final double? width;
   final String labelText;
+  final Icon? leadingIcon;
+  final double? menuHeight;
   final int initialSelection;
-  final IconData leadingIcon;
   final ValueChanged<int?>? onSelected;
   final TextEditingController? controller;
   final List<DropdownMenuEntry<int>> dropdownMenuEntries;
@@ -47,9 +48,10 @@ class LDropdownMenu extends StatelessWidget {
     super.key,
     this.width,
     this.controller,
+    this.leadingIcon,
+    this.menuHeight,
     required this.onSelected,
     required this.labelText,
-    required this.leadingIcon,
     required this.initialSelection,
     required this.dropdownMenuEntries,
   });
@@ -58,9 +60,10 @@ class LDropdownMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownMenu(
       width: width,
+      menuHeight: menuHeight,
       controller: controller,
       onSelected: onSelected,
-      leadingIcon: Icon(leadingIcon),
+      leadingIcon: leadingIcon,
       initialSelection: initialSelection,
       dropdownMenuEntries: dropdownMenuEntries,
       label: Text(labelText),
