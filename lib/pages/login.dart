@@ -21,14 +21,14 @@ class Login extends StatelessWidget {
             LText.headlineMedium(context, 'Login to proceed', textAlign: TextAlign.center),
             SizedBox(height: 32),
             LTextField(
-              controller: context.read<ProviderLogin>().getNimCtrl(),
+              controller: context.read<ProviderLogin>().nimCtrl,
               icon: Icons.person_outline,
               labelText: "NIM",
               hintText: "0000000000",
             ),
             SizedBox(height: 16),
             LTextField(
-              controller: context.read<ProviderLogin>().getPassCtrl(),
+              controller: context.read<ProviderLogin>().passCtrl,
               icon: Icons.key,
               obscureText: true,
               hintText: '********',

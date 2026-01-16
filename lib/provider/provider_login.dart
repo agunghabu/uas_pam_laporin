@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ProviderLogin with ChangeNotifier {
-  final TextEditingController nimCtrl = TextEditingController();
-  final TextEditingController passCtrl = TextEditingController();
+  final TextEditingController _nimCtrl = TextEditingController();
+  final TextEditingController _passCtrl = TextEditingController();
 
-  TextEditingController getNimCtrl() => nimCtrl;
-  TextEditingController getPassCtrl() => passCtrl;
+  TextEditingController get nimCtrl => _nimCtrl;
+  TextEditingController get passCtrl => _passCtrl;
 }
