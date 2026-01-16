@@ -220,15 +220,51 @@ class _UserDashboardState extends State<UserDashboard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SizedBox(
-                        height: 220,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            'https://www.siliconera.com/wp-content/uploads/2025/02/wuthering-waves-version-12.png',
-                            fit: BoxFit.cover,
+                      Stack(
+                        children: [
+                          SizedBox(
+                            height: 220,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                'https://www.siliconera.com/wp-content/uploads/2025/02/wuthering-waves-version-12.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                        ),
+                          Positioned(
+                            right: 4,
+                            bottom: 4,
+                            child: IconButton.filledTonal(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => Dialog(
+                                    child: Stack(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(6),
+                                          child: Image.network(
+                                            'https://www.siliconera.com/wp-content/uploads/2025/02/wuthering-waves-version-12.png',
+                                          ),
+                                        ),
+                                        Positioned(
+                                          right: 4,
+                                          top: 4,
+                                          child: IconButton.filledTonal(
+                                            onPressed: () => Navigator.pop(context),
+                                            icon: Icon(Icons.close),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                              icon: Icon(Icons.fullscreen_rounded),
+                            ),
+                          ),
+                        ],
                       ),
                       Padding(
                         padding: EdgeInsets.all(12),
