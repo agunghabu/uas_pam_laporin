@@ -5,17 +5,11 @@ class ApiService {
   static const String baseUrl = 'http://10.0.2.2/laporin_api';
 
   static Future<Map<String, dynamic>> get(String endpoint) async {
-    final response = await http.get(
-      Uri.parse('$baseUrl/$endpoint'),
-      headers: {'Content-Type': 'application/json'},
-    );
+    final response = await http.get(Uri.parse('$baseUrl/$endpoint'), headers: {'Content-Type': 'application/json'});
     return _handleResponse(response);
   }
 
-  static Future<Map<String, dynamic>> post(
-    String endpoint,
-    Map<String, dynamic> data,
-  ) async {
+  static Future<Map<String, dynamic>> post(String endpoint, Map<String, dynamic> data) async {
     final response = await http.post(
       Uri.parse('$baseUrl/$endpoint'),
       headers: {'Content-Type': 'application/json'},
@@ -33,16 +27,13 @@ class ApiService {
     var request = http.MultipartRequest('POST', Uri.parse('$baseUrl/$endpoint'));
     request.fields.addAll(fields);
     request.files.add(await http.MultipartFile.fromPath(fileField, filePath));
-    
+
     final streamedResponse = await request.send();
     final response = await http.Response.fromStream(streamedResponse);
     return _handleResponse(response);
   }
 
-  static Future<Map<String, dynamic>> put(
-    String endpoint,
-    Map<String, dynamic> data,
-  ) async {
+  static Future<Map<String, dynamic>> put(String endpoint, Map<String, dynamic> data) async {
     final response = await http.put(
       Uri.parse('$baseUrl/$endpoint'),
       headers: {'Content-Type': 'application/json'},
@@ -52,10 +43,7 @@ class ApiService {
   }
 
   static Future<Map<String, dynamic>> delete(String endpoint) async {
-    final response = await http.delete(
-      Uri.parse('$baseUrl/$endpoint'),
-      headers: {'Content-Type': 'application/json'},
-    );
+    final response = await http.delete(Uri.parse('$baseUrl/$endpoint'), headers: {'Content-Type': 'application/json'});
     return _handleResponse(response);
   }
 
