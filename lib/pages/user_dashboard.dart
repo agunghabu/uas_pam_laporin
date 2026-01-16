@@ -33,7 +33,7 @@ class _UserDashboardState extends State<UserDashboard> {
           actions: [TextButton(onPressed: () {}, child: Icon(Icons.bedtime_outlined, size: 24))],
           bottom: TabBar(
             tabs: [
-              Tab(text: 'Submit Report', icon: Icon(Icons.add_circle_outline)),
+              Tab(text: 'Submit Report', icon: Icon(Icons.send_rounded)),
               Tab(text: 'My Reports', icon: Icon(Icons.list_alt_rounded)),
             ],
           ),
