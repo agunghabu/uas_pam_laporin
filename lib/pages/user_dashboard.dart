@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uas_pam_laporin/provider/provider_login.dart';
+import 'package:uas_pam_laporin/provider/provider_reports.dart';
 import 'package:uas_pam_laporin/provider/provider_theme.dart';
+import 'package:uas_pam_laporin/services/api_service.dart';
 import 'package:uas_pam_laporin/utils/widgets.dart';
 
 import '../provider/provider_submit_report.dart';
@@ -15,6 +17,15 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final userId = context.read<ProviderLogin>().userData?['user_id'] ?? '';
+      context.read<ProviderReports>().fetchUserReports(userId);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -307,151 +318,205 @@ class _UserDashboardState extends State<UserDashboard> {
                 ),
               ],
             ),
-            ListView(
-              padding: EdgeInsets.all(16),
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Theme.of(context).colorScheme.outline),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Stack(
-                        children: [
-                          SizedBox(
-                            height: 220,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.network(
-                                'https://www.siliconera.com/wp-content/uploads/2025/02/wuthering-waves-version-12.png',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            right: 4,
-                            bottom: 4,
-                            child: IconButton.filledTonal(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => Dialog(
-                                    child: Stack(
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(6),
-                                          child: Image.network(
-                                            'https://www.siliconera.com/wp-content/uploads/2025/02/wuthering-waves-version-12.png',
-                                          ),
-                                        ),
-                                        Positioned(
-                                          right: 4,
-                                          top: 4,
-                                          child: IconButton.filledTonal(
-                                            onPressed: () => Navigator.pop(context),
-                                            icon: Icon(Icons.close),
-                                          ),
-                                        ),
-                                      ],
+            Consumer<ProviderReports>(
+              builder: (context, provider, child) {
+                if (provider.isLoading) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                if (provider.userReports.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.inbox_outlined, size: 64, color: Theme.of(context).colorScheme.outline),
+                        SizedBox(height: 16),
+                        LText.bodyMedium(context, 'No reports yet'),
+                      ],
+                    ),
+                  );
+                }
+
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    final userId = context.read<ProviderLogin>().userData?['user_id'] ?? '';
+                    await context.read<ProviderReports>().fetchUserReports(userId);
+                  },
+                  child: ListView.separated(
+                    padding: EdgeInsets.all(16),
+                    itemCount: provider.userReports.length,
+                    separatorBuilder: (context, index) => SizedBox(height: 16),
+                    itemBuilder: (context, index) {
+                      final report = provider.userReports[index];
+                      final imageUrl = '${ApiService.baseUrl}/uploads/${report['image']}';
+                      final createdAt = DateTime.parse(report['created_at']);
+                      final date =
+                          '${createdAt.year}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}';
+                      final time =
+                          '${createdAt.hour.toString().padLeft(2, '0')}:${createdAt.minute.toString().padLeft(2, '0')}';
+
+                      final status = report['status'] ?? 'pending';
+                      IconData statusIcon;
+                      String statusText;
+                      switch (status) {
+                        case 'active':
+                          statusIcon = Icons.hourglass_empty;
+                          statusText = 'Active';
+                          break;
+                        case 'completed':
+                          statusIcon = Icons.done_all;
+                          statusText = 'Completed';
+                          break;
+                        default:
+                          statusIcon = Icons.warning_amber_rounded;
+                          statusText = 'Pending';
+                      }
+
+                      return Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Theme.of(context).colorScheme.outline),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Stack(
+                              children: [
+                                SizedBox(
+                                  height: 220,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Image.network(
+                                      imageUrl,
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      errorBuilder: (context, error, stackTrace) => Container(
+                                        color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                                        child: Center(child: Icon(Icons.broken_image_outlined, size: 48)),
+                                      ),
                                     ),
                                   ),
-                                );
-                              },
-                              icon: Icon(Icons.fullscreen_rounded),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            LText.headlineSmall(context, 'Broken AC in G3-R1'),
-                            SizedBox(height: 8),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.person_outline_rounded, size: 16),
-                                    SizedBox(width: 4),
-                                    LText.bodyMedium(context, 'habuhenka'),
-                                  ],
                                 ),
-                                Text(' | ', style: Theme.of(context).textTheme.bodyMedium),
-                                Row(
-                                  children: [
-                                    Icon(Icons.calendar_today_outlined, size: 16),
-                                    SizedBox(width: 4),
-                                    LText.bodyMedium(context, '2024-06-15'),
-                                  ],
-                                ),
-                                Text(' | ', style: Theme.of(context).textTheme.bodyMedium),
-                                Row(
-                                  children: [
-                                    Icon(Icons.access_time_outlined, size: 16),
-                                    SizedBox(width: 4),
-                                    LText.bodyMedium(context, '14:30'),
-                                  ],
+                                Positioned(
+                                  right: 4,
+                                  bottom: 4,
+                                  child: IconButton.filledTonal(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => Dialog(
+                                          child: Stack(
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.circular(6),
+                                                child: Image.network(imageUrl),
+                                              ),
+                                              Positioned(
+                                                right: 4,
+                                                top: 4,
+                                                child: IconButton.filledTonal(
+                                                  onPressed: () => Navigator.pop(context),
+                                                  icon: Icon(Icons.close),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    icon: Icon(Icons.fullscreen_rounded),
+                                  ),
                                 ),
                               ],
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.location_on_outlined, size: 16),
-                                    SizedBox(width: 4),
-                                    LText.bodyMedium(context, 'Campus A'),
-                                  ],
-                                ),
-                                Text(' | ', style: Theme.of(context).textTheme.bodyMedium),
-                                Row(
-                                  children: [
-                                    Icon(Icons.apartment_outlined, size: 16),
-                                    SizedBox(width: 4),
-                                    LText.bodyMedium(context, 'G3-R1'),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 12),
-                            LText.bodySmall(
-                              context,
-                              'The AC has been leaking water for two days.',
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 4),
-                            Divider(),
-                            SizedBox(height: 4),
-                            Container(
-                              height: 44,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surfaceContainerHigh,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Center(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.hourglass_empty, size: 16),
-                                    SizedBox(width: 4),
-                                    Text('Active', style: Theme.of(context).textTheme.bodyMedium),
-                                  ],
-                                ),
+                            Padding(
+                              padding: EdgeInsets.all(12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  LText.headlineSmall(context, report['title'] ?? ''),
+                                  SizedBox(height: 8),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(Icons.person_outline_rounded, size: 16),
+                                          SizedBox(width: 4),
+                                          LText.bodyMedium(context, context.read<ProviderLogin>().userData?['name'] ?? ''),
+                                        ],
+                                      ),
+                                      Text(' | ', style: Theme.of(context).textTheme.bodyMedium),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.calendar_today_outlined, size: 16),
+                                          SizedBox(width: 4),
+                                          LText.bodyMedium(context, date),
+                                        ],
+                                      ),
+                                      Text(' | ', style: Theme.of(context).textTheme.bodyMedium),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.access_time_outlined, size: 16),
+                                          SizedBox(width: 4),
+                                          LText.bodyMedium(context, time),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(Icons.location_on_outlined, size: 16),
+                                          SizedBox(width: 4),
+                                          LText.bodyMedium(context, report['area'] ?? ''),
+                                        ],
+                                      ),
+                                      Text(' | ', style: Theme.of(context).textTheme.bodyMedium),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.apartment_outlined, size: 16),
+                                          SizedBox(width: 4),
+                                          LText.bodyMedium(context, report['unit'] ?? ''),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 12),
+                                  if (report['description'] != null && report['description'].toString().isNotEmpty)
+                                    LText.bodySmall(context, report['description'], textAlign: TextAlign.center),
+                                  SizedBox(height: 4),
+                                  Divider(),
+                                  SizedBox(height: 4),
+                                  Container(
+                                    height: 44,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    child: Center(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(statusIcon, size: 16),
+                                          SizedBox(width: 4),
+                                          Text(statusText, style: Theme.of(context).textTheme.bodyMedium),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
-                ),
-              ],
+                );
+              },
             ),
           ],
         ),
