@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uas_pam_laporin/pages/login.dart';
 import 'package:uas_pam_laporin/provider/provider_login.dart';
 import 'package:uas_pam_laporin/provider/provider_reports.dart';
 import 'package:uas_pam_laporin/provider/provider_theme.dart';
@@ -44,7 +45,16 @@ class _UserDashboardState extends State<UserDashboard> {
                     icon: Icons.category_outlined,
                     title: 'Extras',
                     actions: [
-                      TextButton(onPressed: () => Navigator.pop(context), child: Text('Logout')),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          context.read<ProviderLogin>().logout();
+                          context.read<ProviderReports>().clearReports();
+                          context.read<ProviderSubmitReport>().clearForm();
+                          pushReplace(context, Login());
+                        },
+                        child: Text('Logout'),
+                      ),
                       FilledButton(onPressed: () => Navigator.pop(context), child: Text('OK')),
                     ],
                     content: Column(
