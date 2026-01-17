@@ -33,7 +33,7 @@ class _UserDashboardState extends State<UserDashboard> {
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Welcome {User}'),
+          title: Text('Welcome, ${context.read<ProviderLogin>().userData?['name'] ?? ''}'),
           actions: [
             InkWell(
               borderRadius: BorderRadius.circular(24),
