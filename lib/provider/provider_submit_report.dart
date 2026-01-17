@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../services/api_service.dart';
+import '../utils/helpers.dart';
 
 class ProviderSubmitReport with ChangeNotifier {
   File? _imageFile;
@@ -61,8 +62,8 @@ class ProviderSubmitReport with ChangeNotifier {
           'user_id': userId,
           'title': _titleCtrl.text,
           'description': _descCtrl.text,
-          'area': _selectedArea.toString(),
-          'unit': _selectedUnit.toString(),
+          'area': getAreaName(_selectedArea),
+          'unit': getUnitName(_selectedArea, _selectedUnit),
         },
         'image',
         _imageFile!.path,

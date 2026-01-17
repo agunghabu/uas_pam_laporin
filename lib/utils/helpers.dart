@@ -2,6 +2,28 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+const List<String> areaNames = ['Campus A', 'Campus B', 'Campus C'];
+
+const Map<int, List<String>> unitNames = {
+  0: ['A1', 'A2', 'A3'],
+  1: ['B1', 'B2'],
+  2: ['C1'],
+};
+
+String getAreaName(int index) {
+  if (index >= 0 && index < areaNames.length) {
+    return areaNames[index];
+  }
+  return 'Unknown';
+}
+
+String getUnitName(int areaIndex, int unitIndex) {
+  if (unitNames.containsKey(areaIndex) && unitIndex >= 0 && unitIndex < unitNames[areaIndex]!.length) {
+    return unitNames[areaIndex]![unitIndex];
+  }
+  return 'Unknown';
+}
+
 List<DropdownMenuEntry<int>> getBuildingEntries(int selectedArea) {
   if (selectedArea == 0) {
     return [
