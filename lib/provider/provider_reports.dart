@@ -86,4 +86,25 @@ class ProviderReports with ChangeNotifier {
     _completedReports = [];
     notifyListeners();
   }
+
+  Future<bool> updateReportStatus(int reportId, String newStatus) async {
+    try {
+      final response = await ApiService.post('reports/update_status.php', {'id': reportId, 'status': newStatus});
+
+      if (response['success'] == true) {
+        await fetchReportsByStatus('pending');
+        await fetchReportsByStatus('active');
+        await fetchReportsByStatus('completed');
+        return true;
+      } else {
+        _errorMessage = response['message'];
+        notifyListeners();
+        return false;
+      }
+    } catch (e) {
+      _errorMessage = e.toString().replaceAll('Exception: ', '');
+      notifyListeners();
+      return false;
+    }
+  }
 }

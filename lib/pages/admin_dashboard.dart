@@ -290,12 +290,44 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       TextButton.icon(
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          final confirm = await showDialog<bool>(
+                                            context: context,
+                                            builder: (context) => LAlertDialog(
+                                              icon: Icons.warning_amber_rounded,
+                                              title: 'Reject Report',
+                                              content: Text(
+                                                'Are you sure you want to reject this report? This action cannot be undone.',
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () => Navigator.pop(context, false),
+                                                  child: Text('Cancel'),
+                                                ),
+                                                FilledButton(
+                                                  onPressed: () => Navigator.pop(context, true),
+                                                  child: Text('Reject'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                          if (confirm == true && context.mounted) {
+                                            await context.read<ProviderReports>().updateReportStatus(
+                                              report['id'],
+                                              'rejected',
+                                            );
+                                          }
+                                        },
                                         label: Text('Reject'),
                                         icon: Icon(Icons.close_rounded),
                                       ),
                                       FilledButton.icon(
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          await context.read<ProviderReports>().updateReportStatus(
+                                            report['id'],
+                                            'active',
+                                          );
+                                        },
                                         label: Text('Accept'),
                                         icon: Icon(Icons.check_rounded),
                                       ),
@@ -469,12 +501,44 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       TextButton.icon(
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          final confirm = await showDialog<bool>(
+                                            context: context,
+                                            builder: (context) => LAlertDialog(
+                                              icon: Icons.warning_amber_rounded,
+                                              title: 'Discard Report',
+                                              content: Text(
+                                                'Are you sure you want to discard this report? This action cannot be undone.',
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () => Navigator.pop(context, false),
+                                                  child: Text('Cancel'),
+                                                ),
+                                                FilledButton(
+                                                  onPressed: () => Navigator.pop(context, true),
+                                                  child: Text('Discard'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                          if (confirm == true && context.mounted) {
+                                            await context.read<ProviderReports>().updateReportStatus(
+                                              report['id'],
+                                              'rejected',
+                                            );
+                                          }
+                                        },
                                         label: Text('Discard'),
                                         icon: Icon(Icons.close_rounded),
                                       ),
                                       FilledButton.icon(
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          await context.read<ProviderReports>().updateReportStatus(
+                                            report['id'],
+                                            'completed',
+                                          );
+                                        },
                                         label: Text('Complete'),
                                         icon: Icon(Icons.check_rounded),
                                       ),
