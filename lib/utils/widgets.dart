@@ -75,21 +75,13 @@ class LAlertDialog extends StatelessWidget {
   final String title;
   final IconData icon;
   final Widget content;
-  final Color iconColor;
   final List<Widget>? actions;
-  const LAlertDialog({
-    super.key,
-    this.actions,
-    required this.icon,
-    required this.title,
-    required this.content,
-    required this.iconColor,
-  });
+  const LAlertDialog({super.key, this.actions, required this.icon, required this.title, required this.content});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      icon: Icon(icon, color: iconColor, size: 48),
+      icon: Icon(icon, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 48),
       title: Text(title),
       actions: actions ?? [TextButton(onPressed: () => Navigator.pop(context), child: Text('OK'))],
       content: content,
