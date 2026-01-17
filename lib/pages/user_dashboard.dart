@@ -42,7 +42,7 @@ class _UserDashboardState extends State<UserDashboard> {
                   context: context,
                   builder: (context) => LAlertDialog(
                     icon: Icons.category_outlined,
-                    title: 'Extra',
+                    title: 'Extras',
                     actions: [
                       TextButton(onPressed: () => Navigator.pop(context), child: Text('Logout')),
                       FilledButton(onPressed: () => Navigator.pop(context), child: Text('OK')),
