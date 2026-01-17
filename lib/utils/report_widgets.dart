@@ -6,11 +6,7 @@ class ReportCard extends StatelessWidget {
   final Map<String, dynamic> report;
   final Widget actionSection;
 
-  const ReportCard({
-    super.key,
-    required this.report,
-    required this.actionSection,
-  });
+  const ReportCard({super.key, required this.report, required this.actionSection});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +14,7 @@ class ReportCard extends StatelessWidget {
     final createdAt = DateTime.parse(report['created_at']);
     final date =
         '${createdAt.year}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}';
-    final time =
-        '${createdAt.hour.toString().padLeft(2, '0')}:${createdAt.minute.toString().padLeft(2, '0')}';
+    final time = '${createdAt.hour.toString().padLeft(2, '0')}:${createdAt.minute.toString().padLeft(2, '0')}';
 
     return Container(
       decoration: BoxDecoration(
@@ -56,10 +51,7 @@ class ReportCard extends StatelessWidget {
                       builder: (context) => Dialog(
                         child: Stack(
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(6),
-                              child: Image.network(imageUrl),
-                            ),
+                            ClipRRect(borderRadius: BorderRadius.circular(6), child: Image.network(imageUrl)),
                             Positioned(
                               right: 4,
                               top: 4,
@@ -191,10 +183,7 @@ class ReportListView extends StatelessWidget {
         separatorBuilder: (context, index) => SizedBox(height: 16),
         itemBuilder: (context, index) {
           final report = reports[index];
-          return ReportCard(
-            report: report,
-            actionSection: actionBuilder(report),
-          );
+          return ReportCard(report: report, actionSection: actionBuilder(report));
         },
       ),
     );
@@ -205,11 +194,7 @@ class PendingActionButtons extends StatelessWidget {
   final Map<String, dynamic> report;
   final Future<void> Function(int id, String status) onUpdateStatus;
 
-  const PendingActionButtons({
-    super.key,
-    required this.report,
-    required this.onUpdateStatus,
-  });
+  const PendingActionButtons({super.key, required this.report, required this.onUpdateStatus});
 
   @override
   Widget build(BuildContext context) {
@@ -253,11 +238,7 @@ class ActiveActionButtons extends StatelessWidget {
   final Map<String, dynamic> report;
   final Future<void> Function(int id, String status) onUpdateStatus;
 
-  const ActiveActionButtons({
-    super.key,
-    required this.report,
-    required this.onUpdateStatus,
-  });
+  const ActiveActionButtons({super.key, required this.report, required this.onUpdateStatus});
 
   @override
   Widget build(BuildContext context) {
