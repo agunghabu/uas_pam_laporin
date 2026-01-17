@@ -58,7 +58,7 @@ class _UserDashboardState extends State<UserDashboard> {
                               children: [
                                 Icon(Icons.person_outline_rounded, size: 16),
                                 SizedBox(width: 4),
-                                LText.bodyMedium(context, 'habuhenka'),
+                                LText.bodyMedium(context, context.read<ProviderLogin>().userData?['name'] ?? ''),
                               ],
                             ),
                             Text(' | ', style: Theme.of(context).textTheme.bodyMedium),
@@ -66,7 +66,7 @@ class _UserDashboardState extends State<UserDashboard> {
                               children: [
                                 Icon(Icons.numbers_rounded, size: 16),
                                 SizedBox(width: 4),
-                                LText.bodyMedium(context, '3012310701'),
+                                LText.bodyMedium(context, context.read<ProviderLogin>().userData?['user_id'] ?? ''),
                               ],
                             ),
                           ],
