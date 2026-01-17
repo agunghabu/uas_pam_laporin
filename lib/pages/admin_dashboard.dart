@@ -24,7 +24,6 @@ class AdminDashboard extends StatelessWidget {
                   builder: (context) => LAlertDialog(
                     icon: Icons.category_outlined,
                     title: 'Extra',
-                    iconColor: Theme.of(context).colorScheme.onSurfaceVariant,
                     actions: [
                       TextButton(onPressed: () => Navigator.pop(context), child: Text('Logout')),
                       FilledButton(onPressed: () => Navigator.pop(context), child: Text('OK')),

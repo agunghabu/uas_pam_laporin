@@ -27,7 +27,6 @@ class Login extends StatelessWidget {
         builder: (context) => LAlertDialog(
           icon: Icons.error_outline,
           title: 'Login Failed',
-          iconColor: Colors.redAccent,
           content: Text(provider.errorMessage!, textAlign: TextAlign.center),
         ),
       );
