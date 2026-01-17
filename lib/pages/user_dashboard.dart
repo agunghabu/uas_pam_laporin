@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uas_pam_laporin/provider/provider_login.dart';
 import 'package:uas_pam_laporin/provider/provider_theme.dart';
 import 'package:uas_pam_laporin/utils/widgets.dart';
 
@@ -31,7 +32,6 @@ class _UserDashboardState extends State<UserDashboard> {
                   builder: (context) => LAlertDialog(
                     icon: Icons.category_outlined,
                     title: 'Extra',
-                    iconColor: Theme.of(context).colorScheme.onSurfaceVariant,
                     actions: [
                       TextButton(onPressed: () => Navigator.pop(context), child: Text('Logout')),
                       FilledButton(onPressed: () => Navigator.pop(context), child: Text('OK')),
@@ -268,29 +268,42 @@ class _UserDashboardState extends State<UserDashboard> {
                   ],
                 ),
                 SizedBox(height: 16),
-                FilledButton(
-                  onPressed: () {
-                    // print(
-                    //   'Title: ${context.read<ProviderSubmitReport>().titleCtrl.text}, '
-                    //   'Description: ${context.read<ProviderSubmitReport>().descCtrl.text}, '
-                    //   'Area: ${context.read<ProviderSubmitReport>().selectedArea}, '
-                    //   'Unit: ${context.read<ProviderSubmitReport>().selectedUnit}',
-                    // );
-                    if (!context.read<ProviderSubmitReport>().validateInputs()) {
-                      showDialog(
-                        context: context,
-                        builder: (context) => LAlertDialog(
-                          icon: Icons.warning_amber_rounded,
-                          title: 'Incomplete Report',
-                          content: Text(
-                            'Please make sure to attach a photo, fill in the title, and select both area and unit.',
-                          ),
-                          iconColor: Colors.redAccent,
-                        ),
-                      );
-                    }
+                Consumer<ProviderSubmitReport>(
+                  builder: (context, provider, child) {
+                    return FilledButton(
+                      onPressed: provider.isLoading
+                          ? null
+                          : () async {
+                              final userId = context.read<ProviderLogin>().userData?['user_id'] ?? '';
+                              final success = await provider.submitReport(userId);
+
+                              if (context.mounted) {
+                                if (success) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => LAlertDialog(
+                                      icon: Icons.check_rounded,
+                                      title: 'Success',
+                                      content: Text('Your report has been submitted successfully.'),
+                                    ),
+                                  );
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => LAlertDialog(
+                                      icon: Icons.close_rounded,
+                                      title: 'Failed',
+                                      content: Text(provider.errorMessage ?? 'Failed to submit report.'),
+                                    ),
+                                  );
+                                }
+                              }
+                            },
+                      child: provider.isLoading
+                          ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                          : Text('Submit Report'),
+                    );
                   },
-                  child: Text('Submit Report'),
                 ),
               ],
             ),
