@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uas_pam_laporin/pages/login.dart';
 import 'package:uas_pam_laporin/provider/provider_login.dart';
+import 'package:uas_pam_laporin/provider/provider_reports.dart';
 import 'package:uas_pam_laporin/provider/provider_submit_report.dart';
 import 'package:uas_pam_laporin/provider/provider_theme.dart';
 
@@ -12,6 +13,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => ProviderLogin()),
         ChangeNotifierProvider(create: (_) => ProviderAppTheme()),
         ChangeNotifierProvider(create: (_) => ProviderSubmitReport()),
+        ChangeNotifierProvider(create: (_) => ProviderReports()),
       ],
       child: const Laporin(),
     ),
