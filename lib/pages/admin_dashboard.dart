@@ -522,8 +522,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       final report = provider.completedReports[index];
                       final imageUrl = '${ApiService.baseUrl}/uploads/${report['image']}';
                       final createdAt = DateTime.parse(report['created_at']);
-                      final date = '${createdAt.year}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}';
-                      final time = '${createdAt.hour.toString().padLeft(2, '0')}:${createdAt.minute.toString().padLeft(2, '0')}';
+                      final date =
+                          '${createdAt.year}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}';
+                      final time =
+                          '${createdAt.hour.toString().padLeft(2, '0')}:${createdAt.minute.toString().padLeft(2, '0')}';
 
                       return Container(
                         decoration: BoxDecoration(
