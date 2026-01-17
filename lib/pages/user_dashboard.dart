@@ -443,7 +443,10 @@ class _UserDashboardState extends State<UserDashboard> {
                                         children: [
                                           Icon(Icons.person_outline_rounded, size: 16),
                                           SizedBox(width: 4),
-                                          LText.bodyMedium(context, context.read<ProviderLogin>().userData?['name'] ?? ''),
+                                          LText.bodyMedium(
+                                            context,
+                                            context.read<ProviderLogin>().userData?['name'] ?? '',
+                                          ),
                                         ],
                                       ),
                                       Text(' | ', style: Theme.of(context).textTheme.bodyMedium),
