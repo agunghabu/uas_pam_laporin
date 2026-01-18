@@ -283,23 +283,21 @@ class CompletedStatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 4),
-        Container(
-          height: 44,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surfaceContainerHigh,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Icon(Icons.done_all, size: 16), SizedBox(width: 4), LText.bodyMedium(context, 'Completed')],
-            ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Container(
+        height: 44,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surfaceContainerHigh,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Icon(Icons.done_all, size: 16), SizedBox(width: 4), LText.bodyMedium(context, 'Completed')],
           ),
         ),
-      ],
+      ),
     );
   }
 }
@@ -328,23 +326,21 @@ class UserStatusBadge extends StatelessWidget {
       statusIcon = Icons.schedule;
     }
 
-    return Column(
-      children: [
-        SizedBox(height: 4),
-        Container(
-          height: 44,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surfaceContainerHigh,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Icon(statusIcon, size: 16), SizedBox(width: 4), LText.bodyMedium(context, statusText)],
-            ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Container(
+        height: 44,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surfaceContainerHigh,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Icon(statusIcon, size: 16), SizedBox(width: 4), LText.bodyMedium(context, statusText)],
           ),
         ),
-      ],
+      ),
     );
   }
 }
