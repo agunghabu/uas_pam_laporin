@@ -163,16 +163,7 @@ class ReportListView extends StatelessWidget {
     }
 
     if (reports.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.inbox_outlined, size: 64, color: Theme.of(context).colorScheme.outline),
-            SizedBox(height: 16),
-            LText.bodyMedium(context, emptyMessage),
-          ],
-        ),
-      );
+      return Center(child: LText.bodyMedium(context, emptyMessage));
     }
 
     return RefreshIndicator(
