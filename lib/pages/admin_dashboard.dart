@@ -37,7 +37,16 @@ class _AdminDashboardState extends State<AdminDashboard> {
           title: const Text('Laporin'),
           actions: [
             InkWell(
+              onTap: () {},
               borderRadius: BorderRadius.circular(24),
+              child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(shape: BoxShape.circle),
+                child: Icon(Icons.save_outlined, size: 26),
+              ),
+            ),
+            SizedBox(width: 8),
+            InkWell(
               onTap: () {
                 showDialog(
                   context: context,
@@ -115,6 +124,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   ),
                 );
               },
+              borderRadius: BorderRadius.circular(24),
               child: Container(
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(shape: BoxShape.circle),
