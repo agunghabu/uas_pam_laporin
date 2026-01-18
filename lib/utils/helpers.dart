@@ -27,8 +27,8 @@ String? validatePassword(String value) {
 String? validateAN(String value, {int minLength = 6}) {
   if (value.isEmpty) {
     return 'This field cannot be empty';
-  } else if (!RegExp(r'^[a-zA-Z0-9\s]+$').hasMatch(value)) {
-    return 'Only letters and numbers are allowed';
+  } else if (!RegExp(r"^[a-zA-Z0-9\s'\x22,.&!()\-]+$").hasMatch(value)) {
+    return 'Alphanumeric characters only, some symbols are allowed';
   } else if (value.length < minLength) {
     return 'Must be at least $minLength characters';
   } else {
@@ -39,8 +39,8 @@ String? validateAN(String value, {int minLength = 6}) {
 String? validateDesc(String value) {
   if (value.isEmpty) {
     return null;
-  } else if (!RegExp(r'^[a-zA-Z0-9\s]+$').hasMatch(value)) {
-    return 'Only letters and numbers are allowed';
+  } else if (!RegExp(r"^[a-zA-Z0-9\s'\x22,.&!()\-]+$").hasMatch(value)) {
+    return 'Alphanumeric characters only, some symbols are allowed';
   } else {
     return null;
   }
