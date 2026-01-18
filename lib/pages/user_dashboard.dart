@@ -377,8 +377,12 @@ class _UserDashboardState extends State<UserDashboard> {
                           statusIcon = Icons.done_all;
                           statusText = 'Completed';
                           break;
+                        case 'rejected':
+                          statusIcon = Icons.close_rounded;
+                          statusText = 'Rejected';
+                          break;
                         default:
-                          statusIcon = Icons.warning_amber_rounded;
+                          statusIcon = Icons.schedule;
                           statusText = 'Pending';
                       }
 

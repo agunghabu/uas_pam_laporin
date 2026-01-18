@@ -251,11 +251,11 @@ class ActiveActionButtons extends StatelessWidget {
               context: context,
               builder: (context) => LAlertDialog(
                 icon: Icons.warning_amber_rounded,
-                title: 'Discard Report',
-                content: Text('Are you sure you want to discard this report? This action cannot be undone.'),
+                title: 'Reject Report',
+                content: Text('Are you sure you want to reject this report?'),
                 actions: [
                   TextButton(onPressed: () => Navigator.pop(context, false), child: Text('Cancel')),
-                  FilledButton(onPressed: () => Navigator.pop(context, true), child: Text('Discard')),
+                  FilledButton(onPressed: () => Navigator.pop(context, true), child: Text('Reject')),
                 ],
               ),
             );
@@ -263,7 +263,7 @@ class ActiveActionButtons extends StatelessWidget {
               await onUpdateStatus(report['id'], 'rejected');
             }
           },
-          label: Text('Discard'),
+          label: Text('Reject'),
           icon: Icon(Icons.close_rounded),
         ),
         FilledButton.icon(
