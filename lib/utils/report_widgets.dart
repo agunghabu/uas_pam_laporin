@@ -295,11 +295,52 @@ class CompletedStatusBadge extends StatelessWidget {
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.done_all, size: 16),
-                SizedBox(width: 4),
-                Text('Completed', style: Theme.of(context).textTheme.bodyMedium),
-              ],
+              children: [Icon(Icons.done_all, size: 16), SizedBox(width: 4), LText.bodyMedium(context, 'Completed')],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class UserStatusBadge extends StatelessWidget {
+  final String status;
+
+  const UserStatusBadge({super.key, required this.status});
+
+  @override
+  Widget build(BuildContext context) {
+    IconData statusIcon;
+    String statusText;
+
+    if (status == 'active') {
+      statusText = 'Active';
+      statusIcon = Icons.hourglass_empty;
+    } else if (status == 'completed') {
+      statusText = 'Completed';
+      statusIcon = Icons.done_all;
+    } else if (status == 'rejected') {
+      statusText = 'Rejected';
+      statusIcon = Icons.close_rounded;
+    } else {
+      statusText = 'Pending';
+      statusIcon = Icons.schedule;
+    }
+
+    return Column(
+      children: [
+        SizedBox(height: 4),
+        Container(
+          height: 44,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surfaceContainerHigh,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Icon(statusIcon, size: 16), SizedBox(width: 4), LText.bodyMedium(context, statusText)],
             ),
           ),
         ),
