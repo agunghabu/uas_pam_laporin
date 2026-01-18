@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ProviderAppTheme with ChangeNotifier {
-  bool _darkMode = true;
-  int _colorIndex = 0;
+  bool _darkMode = false;
+  int _colorIndex = 7;
   final List<Color> _colors = [
     Colors.redAccent,
     Colors.blueAccent,
