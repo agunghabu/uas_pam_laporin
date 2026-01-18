@@ -324,6 +324,7 @@ class _UserDashboardState extends State<UserDashboard> {
 
                               if (context.mounted) {
                                 if (success) {
+                                  context.read<ProviderReports>().fetchUserReports(userId);
                                   showDialog(
                                     context: context,
                                     builder: (context) => LAlertDialog(
