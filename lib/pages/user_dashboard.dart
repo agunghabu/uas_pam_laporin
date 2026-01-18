@@ -148,7 +148,7 @@ class _UserDashboardState extends State<UserDashboard> {
                           builder: (context) => LAlertDialog(
                             icon: Icons.error_outline,
                             title: 'Invalid Image',
-                            content: Text(result['message'], textAlign: TextAlign.center),
+                            content: LText.bodyMedium(context, result['message'], textAlign: TextAlign.center),
                           ),
                         );
                       }
@@ -190,7 +190,11 @@ class _UserDashboardState extends State<UserDashboard> {
                                             builder: (context) => LAlertDialog(
                                               icon: Icons.error_outline,
                                               title: 'Invalid Image',
-                                              content: Text(result['message'], textAlign: TextAlign.center),
+                                              content: LText.bodyMedium(
+                                                context,
+                                                result['message'],
+                                                textAlign: TextAlign.center,
+                                              ),
                                             ),
                                           );
                                         }
@@ -325,7 +329,11 @@ class _UserDashboardState extends State<UserDashboard> {
                                     builder: (context) => LAlertDialog(
                                       icon: Icons.check_rounded,
                                       title: 'Success',
-                                      content: Text('Your report has been submitted successfully.'),
+                                      content: LText.bodyMedium(
+                                        context,
+                                        'Report submitted successfully.',
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
                                   );
                                 } else {
@@ -334,7 +342,11 @@ class _UserDashboardState extends State<UserDashboard> {
                                     builder: (context) => LAlertDialog(
                                       icon: Icons.close_rounded,
                                       title: 'Failed',
-                                      content: Text(provider.errorMessage ?? 'Failed to submit report.'),
+                                      content: LText.bodyMedium(
+                                        context,
+                                        provider.errorMessage ?? 'Failed to submit report.',
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
                                   );
                                 }

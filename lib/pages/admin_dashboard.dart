@@ -68,7 +68,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       builder: (context) => LAlertDialog(
                         icon: Icons.error_outline,
                         title: 'Export Failed',
-                        content: Text('No reports to export or failed to save file.'),
+                        content: LText.bodyMedium(
+                          context,
+                          'No reports to export or failed to save file.',
+                          textAlign: TextAlign.center,
+                        ),
                         actions: [FilledButton(onPressed: () => Navigator.pop(context), child: Text('OK'))],
                       ),
                     );
