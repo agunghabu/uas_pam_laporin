@@ -8,6 +8,7 @@ class ProviderReports with ChangeNotifier {
   List<Map<String, dynamic>> _pendingReports = [];
   List<Map<String, dynamic>> _activeReports = [];
   List<Map<String, dynamic>> _completedReports = [];
+  List<Map<String, dynamic>> _rejectedReports = [];
   String? _errorMessage;
 
   bool get isLoading => _isLoading;
@@ -16,6 +17,7 @@ class ProviderReports with ChangeNotifier {
   List<Map<String, dynamic>> get pendingReports => _pendingReports;
   List<Map<String, dynamic>> get activeReports => _activeReports;
   List<Map<String, dynamic>> get completedReports => _completedReports;
+  List<Map<String, dynamic>> get rejectedReports => _rejectedReports;
   String? get errorMessage => _errorMessage;
 
   Future<void> fetchUserReports(String userId) async {
@@ -63,6 +65,9 @@ class ProviderReports with ChangeNotifier {
           case 'completed':
             _completedReports = reports;
             break;
+          case 'rejected':
+            _rejectedReports = reports;
+            break;
         }
       } else {
         _errorMessage = response['message'];
@@ -84,6 +89,7 @@ class ProviderReports with ChangeNotifier {
     _pendingReports = [];
     _activeReports = [];
     _completedReports = [];
+    _rejectedReports = [];
     notifyListeners();
   }
 
@@ -95,6 +101,7 @@ class ProviderReports with ChangeNotifier {
         await fetchReportsByStatus('pending');
         await fetchReportsByStatus('active');
         await fetchReportsByStatus('completed');
+        await fetchReportsByStatus('rejected');
         return true;
       } else {
         _errorMessage = response['message'];

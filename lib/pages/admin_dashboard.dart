@@ -4,6 +4,7 @@ import 'package:uas_pam_laporin/pages/login.dart';
 import 'package:uas_pam_laporin/provider/provider_login.dart';
 import 'package:uas_pam_laporin/provider/provider_reports.dart';
 import 'package:uas_pam_laporin/provider/provider_theme.dart';
+import 'package:uas_pam_laporin/services/csv_service.dart';
 import 'package:uas_pam_laporin/utils/helpers.dart';
 import 'package:uas_pam_laporin/utils/report_widgets.dart';
 
@@ -37,12 +38,48 @@ class _AdminDashboardState extends State<AdminDashboard> {
           title: const Text('Laporin'),
           actions: [
             InkWell(
-              onTap: () {},
+              onTap: () async {
+                final provider = context.read<ProviderReports>();
+                final filePath = await CsvService.exporToCsv(
+                  pendingReports: provider.pendingReports,
+                  activeReports: provider.activeReports,
+                  completedReports: provider.completedReports,
+                  rejectedReports: provider.rejectedReports,
+                );
+
+                if (context.mounted) {
+                  if (filePath != null) {
+                    showDialog(
+                      context: context,
+                      builder: (context) => LAlertDialog(
+                        icon: Icons.check_rounded,
+                        title: 'Export Successful',
+                        content: LText.bodyMedium(
+                          context,
+                          'CSV file saved to "Download" folder:\n$filePath',
+                          textAlign: TextAlign.center,
+                        ),
+                        actions: [FilledButton(onPressed: () => Navigator.pop(context), child: Text('OK'))],
+                      ),
+                    );
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (context) => LAlertDialog(
+                        icon: Icons.error_outline,
+                        title: 'Export Failed',
+                        content: Text('No reports to export or failed to save file.'),
+                        actions: [FilledButton(onPressed: () => Navigator.pop(context), child: Text('OK'))],
+                      ),
+                    );
+                  }
+                }
+              },
               borderRadius: BorderRadius.circular(24),
               child: Container(
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(shape: BoxShape.circle),
-                child: Icon(Icons.save_outlined, size: 26),
+                child: Icon(Icons.print_outlined, size: 26),
               ),
             ),
             SizedBox(width: 8),
