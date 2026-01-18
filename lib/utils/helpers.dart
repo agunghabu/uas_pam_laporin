@@ -2,6 +2,66 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+String? validateID(String value) {
+  if (value.isEmpty) {
+    return 'ID cannot be empty';
+  } else if (value.length != 10) {
+    return 'ID must be exactly 10 digits';
+  } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+    return 'ID must contain only numbers';
+  } else {
+    return null;
+  }
+}
+
+String? validatePassword(String value) {
+  if (value.isEmpty) {
+    return 'Password cannot be empty';
+  } else if (value.length < 6) {
+    return 'Password must be at least 6 characters';
+  } else {
+    return null;
+  }
+}
+
+String? validateAN(String value, {int minLength = 6}) {
+  if (value.isEmpty) {
+    return 'This field cannot be empty';
+  } else if (!RegExp(r'^[a-zA-Z0-9\s]+$').hasMatch(value)) {
+    return 'Only letters and numbers are allowed';
+  } else if (value.length < minLength) {
+    return 'Must be at least $minLength characters';
+  } else {
+    return null;
+  }
+}
+
+String? validateDesc(String value) {
+  if (value.isEmpty) {
+    return null;
+  } else if (!RegExp(r'^[a-zA-Z0-9\s]+$').hasMatch(value)) {
+    return 'Only letters and numbers are allowed';
+  } else {
+    return null;
+  }
+}
+
+Future<Map<String, dynamic>> validateImage(File file) async {
+  final int imageSize = 10 * 1024 * 1024;
+  final List<String> imageExt = ['jpg', 'jpeg', 'png'];
+
+  final fileSize = await file.length();
+  final extension = file.path.split('.').last.toLowerCase();
+
+  if (!imageExt.contains(extension)) {
+    return {'valid': false, 'message': 'Only PNG/JPG images are allowed'};
+  } else if (fileSize > imageSize) {
+    return {'valid': false, 'message': 'Image size must be less than 10MB'};
+  } else {
+    return {'valid': true, 'message': null};
+  }
+}
+
 const List<String> areaNames = ['Campus A', 'Campus B', 'Campus C'];
 
 const Map<int, List<String>> unitNames = {
@@ -42,15 +102,22 @@ List<DropdownMenuEntry<int>> getBuildingEntries(int selectedArea) {
   }
 }
 
-takePhoto(ImagePicker picker) async {
+Future<Map<String, dynamic>> takePhoto(ImagePicker picker) async {
   try {
     final XFile? photo = await picker.pickImage(source: ImageSource.camera);
     if (photo != null) {
-      return File(photo.path);
+      final file = File(photo.path);
+      final validation = await validateImage(file);
+      if (validation['valid'] == true) {
+        return {'success': true, 'file': file, 'message': null};
+      } else {
+        return {'success': false, 'file': null, 'message': validation['message']};
+      }
+    } else {
+      return {'success': false, 'file': null, 'message': null};
     }
-    return null;
   } catch (e) {
-    print(e);
+    return {'success': false, 'file': null, 'message': e.toString()};
   }
 }
 

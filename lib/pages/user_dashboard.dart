@@ -139,9 +139,19 @@ class _UserDashboardState extends State<UserDashboard> {
                 InkWell(
                   onTap: () async {
                     if (context.read<ProviderSubmitReport>().imageFile == null) {
-                      context.read<ProviderSubmitReport>().setImageFile(
-                        await takePhoto(context.read<ProviderSubmitReport>().picker),
-                      );
+                      final result = await takePhoto(context.read<ProviderSubmitReport>().picker);
+                      if (result['success'] == true) {
+                        context.read<ProviderSubmitReport>().setImageFile(result['file']);
+                      } else if (result['message'] != null) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => LAlertDialog(
+                            icon: Icons.error_outline,
+                            title: 'Invalid Image',
+                            content: Text(result['message'], textAlign: TextAlign.center),
+                          ),
+                        );
+                      }
                     }
                   },
                   borderRadius: BorderRadius.circular(6),
@@ -171,9 +181,19 @@ class _UserDashboardState extends State<UserDashboard> {
                                   children: [
                                     FilledButton.tonalIcon(
                                       onPressed: () async {
-                                        context.read<ProviderSubmitReport>().setImageFile(
-                                          await takePhoto(context.read<ProviderSubmitReport>().picker),
-                                        );
+                                        final result = await takePhoto(context.read<ProviderSubmitReport>().picker);
+                                        if (result['success'] == true) {
+                                          context.read<ProviderSubmitReport>().setImageFile(result['file']);
+                                        } else if (result['message'] != null) {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => LAlertDialog(
+                                              icon: Icons.error_outline,
+                                              title: 'Invalid Image',
+                                              content: Text(result['message'], textAlign: TextAlign.center),
+                                            ),
+                                          );
+                                        }
                                       },
                                       label: Text('Retake'),
                                       icon: Icon(Icons.camera_alt_outlined),

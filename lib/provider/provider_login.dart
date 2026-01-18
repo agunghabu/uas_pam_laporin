@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
+import '../utils/helpers.dart';
 
 class ProviderLogin with ChangeNotifier {
   final TextEditingController _idCtrl = TextEditingController();
@@ -16,8 +17,16 @@ class ProviderLogin with ChangeNotifier {
   Map<String, dynamic>? get userData => _userData;
 
   Future<bool> login() async {
-    if (_idCtrl.text.isEmpty || _passCtrl.text.isEmpty) {
-      _errorMessage = "Please fill in all fields";
+    final idError = validateID(_idCtrl.text);
+    if (idError != null) {
+      _errorMessage = idError;
+      notifyListeners();
+      return false;
+    }
+
+    final passError = validatePassword(_passCtrl.text);
+    if (passError != null) {
+      _errorMessage = passError;
       notifyListeners();
       return false;
     }

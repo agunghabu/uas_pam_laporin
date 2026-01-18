@@ -40,13 +40,31 @@ class ProviderSubmitReport with ChangeNotifier {
     notifyListeners();
   }
 
-  bool validateInputs() {
-    return _imageFile != null && _selectedArea != -1 && _selectedUnit != -1 && _titleCtrl.text.isNotEmpty;
+  String? validateInputs() {
+    if (_imageFile == null) {
+      return 'Please attach a photo';
+    } else if (_selectedArea == -1) {
+      return 'Please select an area';
+    } else if (_selectedUnit == -1) {
+      return 'Please select a unit';
+    }
+
+    final titleError = validateAN(_titleCtrl.text, minLength: 6);
+    final descError = validateDesc(_descCtrl.text);
+
+    if (titleError != null) {
+      return 'Title: $titleError';
+    } else if (descError != null) {
+      return 'Description: $descError';
+    }
+
+    return null;
   }
 
   Future<bool> submitReport(String userId) async {
-    if (!validateInputs()) {
-      _errorMessage = "Please make sure to attach a photo, fill in the title, and select both area and unit.";
+    final validationError = validateInputs();
+    if (validationError != null) {
+      _errorMessage = validationError;
       notifyListeners();
       return false;
     }
