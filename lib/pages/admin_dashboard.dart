@@ -31,7 +31,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
@@ -176,6 +176,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
           ],
           bottom: TabBar(
             tabs: [
+              Tab(text: 'Dashboard', icon: Icon(Icons.dashboard_rounded)),
               Tab(text: 'Pending', icon: Icon(Icons.warning_amber_rounded)),
               Tab(text: 'Active', icon: Icon(Icons.hourglass_empty)),
               Tab(text: 'Completed', icon: Icon(Icons.done_all)),
@@ -184,6 +185,106 @@ class _AdminDashboardState extends State<AdminDashboard> {
         ),
         body: TabBarView(
           children: [
+            Consumer<ProviderReports>(
+              builder: (context, provider, child) {
+                final totalCount =
+                    provider.pendingReports.length +
+                    provider.activeReports.length +
+                    provider.completedReports.length +
+                    provider.rejectedReports.length;
+                final pendingCount = provider.pendingReports.length;
+                final activeCount = provider.activeReports.length;
+                final completedCount = provider.completedReports.length;
+                final rejectedCount = provider.rejectedReports.length;
+
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    await provider.fetchReportsByStatus('pending');
+                    await provider.fetchReportsByStatus('active');
+                    await provider.fetchReportsByStatus('completed');
+                    await provider.fetchReportsByStatus('rejected');
+                  },
+                  child: ListView(
+                    padding: EdgeInsets.all(16),
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: context
+                              .watch<ProviderAppTheme>()
+                              .colors[context.watch<ProviderAppTheme>().colorIndex]
+                              .withOpacity(0.15),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Icon(Icons.send_and_archive_outlined, size: 32),
+                                    SizedBox(height: 12),
+                                    LText.headlineSmall(context, 'Total Reports'),
+                                    SizedBox(height: 4),
+                                    LText.bodySmall(context, 'All submitted reports', textAlign: TextAlign.start),
+                                  ],
+                                ),
+                              ),
+                              Text('$totalCount', style: TextStyle(fontSize: 80, fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: LStatusCard(
+                              icon: Icons.warning_amber_rounded,
+                              color: Colors.orange,
+                              title: 'Pending',
+                              count: pendingCount,
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: LStatusCard(
+                              icon: Icons.hourglass_empty,
+                              color: Colors.blue,
+                              title: 'Active',
+                              count: activeCount,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: LStatusCard(
+                              icon: Icons.done_all,
+                              color: Colors.green,
+                              title: 'Completed',
+                              count: completedCount,
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: LStatusCard(
+                              icon: Icons.close_rounded,
+                              color: Colors.red,
+                              title: 'Rejected',
+                              count: rejectedCount,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
             Consumer<ProviderReports>(
               builder: (context, provider, child) {
                 return ReportListView(

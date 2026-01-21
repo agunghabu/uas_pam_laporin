@@ -30,7 +30,7 @@ class _UserDashboardState extends State<UserDashboard> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
@@ -126,6 +126,7 @@ class _UserDashboardState extends State<UserDashboard> {
           ],
           bottom: TabBar(
             tabs: [
+              Tab(text: 'Dashboard', icon: Icon(Icons.dashboard_rounded)),
               Tab(text: 'Submit Report', icon: Icon(Icons.send_rounded)),
               Tab(text: 'My Reports', icon: Icon(Icons.list_alt_rounded)),
             ],
@@ -133,6 +134,101 @@ class _UserDashboardState extends State<UserDashboard> {
         ),
         body: TabBarView(
           children: [
+            Consumer<ProviderReports>(
+              builder: (context, provider, child) {
+                final reports = provider.userReports;
+                final totalCount = reports.length;
+                final pendingCount = reports.where((r) => r['status'] == 'pending').length;
+                final activeCount = reports.where((r) => r['status'] == 'active').length;
+                final completedCount = reports.where((r) => r['status'] == 'completed').length;
+                final rejectedCount = reports.where((r) => r['status'] == 'rejected').length;
+
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    final userId = context.read<ProviderLogin>().userData?['user_id'] ?? '';
+                    await provider.fetchUserReports(userId);
+                  },
+                  child: ListView(
+                    padding: EdgeInsets.all(16),
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: context
+                              .watch<ProviderAppTheme>()
+                              .colors[context.watch<ProviderAppTheme>().colorIndex]
+                              .withOpacity(0.15),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Icon(Icons.send_and_archive_outlined, size: 32),
+                                    SizedBox(height: 12),
+                                    LText.headlineSmall(context, 'Total Submissions'),
+                                    SizedBox(height: 4),
+                                    LText.bodySmall(context, 'All your reports', textAlign: TextAlign.start),
+                                  ],
+                                ),
+                              ),
+                              Text('$totalCount', style: TextStyle(fontSize: 80, fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: LStatusCard(
+                              icon: Icons.warning_amber_rounded,
+                              color: Colors.orange,
+                              title: 'Pending',
+                              count: pendingCount,
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: LStatusCard(
+                              icon: Icons.hourglass_empty,
+                              color: Colors.blue,
+                              title: 'Active',
+                              count: activeCount,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: LStatusCard(
+                              icon: Icons.done_all,
+                              color: Colors.green,
+                              title: 'Completed',
+                              count: completedCount,
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: LStatusCard(
+                              icon: Icons.close_rounded,
+                              color: Colors.red,
+                              title: 'Rejected',
+                              count: rejectedCount,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
             ListView(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               children: [

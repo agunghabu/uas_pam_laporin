@@ -89,6 +89,42 @@ class LAlertDialog extends StatelessWidget {
   }
 }
 
+class LStatusCard extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final String title;
+  final int count;
+
+  const LStatusCard({super.key, required this.icon, required this.color, required this.title, required this.count});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withOpacity(0.5)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(icon, size: 24, color: color),
+                SizedBox(width: 8),
+                Text(title, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: color)),
+              ],
+            ),
+            SizedBox(height: 12),
+            Text('$count', style: Theme.of(context).textTheme.headlineMedium),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class LText {
   static headlineSmall(BuildContext context, String text, {TextAlign? textAlign = TextAlign.left}) {
     return Text(text, style: Theme.of(context).textTheme.headlineSmall, textAlign: textAlign);
