@@ -60,6 +60,14 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `name`, `password`, `role`) VALUES
+('0000000000', 'Admin', 'admin123', 'admin'),
+('3012310701', 'User', 'user123', 'user');
+
+--
 -- Indexes for dumped tables
 --
 
